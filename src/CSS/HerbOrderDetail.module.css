@@ -1,0 +1,29 @@
+select {
+	--webkit-appearance: none;
+	--moz-appearance: none;
+	--ms-appearance: none;
+	appearance: none;
+	box-shadow: none;
+	border: none;
+	padding: 0.25rem 0.5rem;
+	border-radius: 0.25rem;
+	background-color: #eae7b1;
+	cursor: pointer;
+}
+select::-ms-expand {
+	display: none;
+}
+.select {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+button {
+	margin-left: 1rem;
+	padding: 0.25rem 0.5rem;
+	border: none;
+	border-radius: 0.25rem;
+	background-color: #f94a29;
+	cursor: pointer;
+}

@@ -1,0 +1,35 @@
+li {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	margin: 0.5rem 0;
+	width: 100%;
+	background-color: aliceblue;
+	border-radius: 1rem;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+.herb {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.herbImg {
+	display: flex;
+	justify-content: center;
+}
+.herbImg img {
+	display: flex;
+	width: 160px;
+	height: 90px;
+	border-radius: 1rem;
+	margin: 1rem;
+}
+.description {
+	display: flex;
+	flex-direction: column;
+}
+.herbOrderDetail {
+	display: flex;
+	align-items: center;
+	/* justify-content: center; */
+}

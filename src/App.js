@@ -1,8 +1,13 @@
+import Goods from "./components/Goods/Goods";
+import Header from "./components/Header/Header";
+import { Fragment } from "react";
+
 function App() {
   return (
-    <div>
-      <h2>Let's get started!</h2>
-    </div>
+    <Fragment>
+      <Header />
+      <Goods />
+    </Fragment>
   );
 }
 

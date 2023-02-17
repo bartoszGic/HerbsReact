@@ -1,0 +1,17 @@
+.headerBtn {
+	display: flex;
+	align-items: center;
+	margin-left: 2rem;
+	padding: 0.5rem 1rem;
+	font-size: 1.25rem;
+	background-color: #3c6255;
+	border: none;
+	border-radius: 0.5rem;
+	color: #eae7b1;
+	cursor: pointer;
+}
+.numItems {
+	margin: 0rem 0.5rem 0rem 1rem;
+	color: #f94a29;
+	font-weight: 700;
+}
