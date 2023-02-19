@@ -1,3 +1,7 @@
+.herbsList {
+	display: flex;
+	justify-content: center;
+}
 ul {
 	display: flex;
 	flex-direction: column;
@@ -5,4 +9,10 @@ ul {
 	align-items: center;
 	margin: 0 0.5rem;
 	list-style-type: none;
+}
+
+@media (min-width: 768px) {
+	ul {
+		width: 30rem;
+	}
 }

@@ -1,15 +1,12 @@
 import styles from '../../CSS/Header.module.css'
-import { Fragment } from 'react'
 import HeaderBtn from './HeaderBtn'
 
-const Header = () => {
+const Header = (props) => {
     return (
-        <Fragment>
-            <header className={styles.header}>
-                <h1>HerbsReact</h1>
-                <HeaderBtn />
-            </header>
-        </Fragment>
+        <header className={styles.header}>
+            <h1>HerbsReact</h1>
+            <HeaderBtn onClick={props.onShowCart} />
+        </header>
     )
 }
 

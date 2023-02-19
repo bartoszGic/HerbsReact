@@ -1,12 +1,20 @@
 import styles from '../../CSS/HeaderBtn.module.css'
-const HeaderBtn = () => {
+import { useContext } from 'react'
+import CartContext from '../store/cart-context'
+
+const HeaderBtn = (props) => {
+    const cartCtx = useContext(CartContext)
+    const sumCartHerbs = cartCtx.herbs.reduce((curNum, herb) => {
+        return curNum + herb.amount
+    }, 0)
+
     return (
-        <button className={styles.headerBtn}>
+        <button className={styles.headerBtn} onClick={props.onClick}>
             <span>
-                <i class="fa-solid fa-cart-shopping"></i>
+                <i className="fa-solid fa-cart-shopping"></i>
             </span>
-            <span className={styles.numItems}>
-                <p>4</p>
+            <span className={styles.numHerbs}>
+                <p>{sumCartHerbs}</p>
             </span>
         </button>
     )

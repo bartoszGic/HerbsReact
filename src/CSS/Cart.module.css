@@ -1,0 +1,21 @@
+.summary {
+	text-align: center;
+	margin-bottom: 1rem;
+}
+.buttons {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 1rem;
+}
+.closeBtn {
+	background-color: #eae7b1;
+}
+.cartItems {
+	width: 100%;
+	margin: 0;
+	list-style: none;
+	max-height: 15rem;
+}
+.cartItems li {
+	padding-left: 1rem;
+}
