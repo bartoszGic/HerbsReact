@@ -12,6 +12,11 @@ const Herb = (props) => {
             setPrice(props.price3)
         }
     }
+
+    const addToCartHandl = (weight) => {
+        console.log(weight);
+    }
+
     return (
         <li>
             <div className={styles.herb}>
@@ -23,7 +28,7 @@ const Herb = (props) => {
                 <h4 className={styles.name}>{props.name}</h4>
                 <div className={styles.price}>{price}</div>
                 <div className={styles.herbOrderDetail}>
-                    <HerbOrderDetail onWeightChange={changeWeightHandl} />
+                    <HerbOrderDetail onAdd={addToCartHandl} onWeightChange={changeWeightHandl} />
                 </div>
             </div>
 
