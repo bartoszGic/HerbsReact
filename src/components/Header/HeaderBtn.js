@@ -5,9 +5,10 @@ import CartContext from '../store/cart-context'
 const HeaderBtn = (props) => {
     const cartCtx = useContext(CartContext)
     const sumCartHerbs = cartCtx.herbs.reduce((curNum, herb) => {
-        return curNum + herb.amount
+        return curNum + herb.weight / herb.weight
     }, 0)
 
+    console.log(typeof sumCartHerbs);
     return (
         <button className={styles.headerBtn} onClick={props.onClick}>
             <span>

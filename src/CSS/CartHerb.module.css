@@ -1,0 +1,20 @@
+.cartHerb {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 0.5rem 1rem;
+	margin: 0.5rem;
+	width: 90%;
+	background-color: aliceblue;
+	border-radius: 1rem;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+.cartHerbName {
+	width: 45%;
+}
+.cartHerbWeight {
+	width: 10%;
+}
+.cartHerbPrice {
+	width: 45%;
+}

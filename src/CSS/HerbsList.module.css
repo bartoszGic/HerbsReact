@@ -12,7 +12,7 @@ ul {
 }
 
 @media (min-width: 768px) {
-	ul {
+	.herbsList ul {
 		width: 30rem;
 	}
 }

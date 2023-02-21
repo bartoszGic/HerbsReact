@@ -15,7 +15,5 @@
 	margin: 0;
 	list-style: none;
 	max-height: 15rem;
-}
-.cartItems li {
-	padding-left: 1rem;
+	overflow: auto;
 }

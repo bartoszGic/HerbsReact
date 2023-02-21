@@ -1,4 +1,4 @@
-li {
+.herb {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
@@ -8,12 +8,12 @@ li {
 	border-radius: 1rem;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
-.herb {
+.herbImgContainer {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
-.herbImg {
+.herbImgContainer {
 	display: flex;
 	justify-content: center;
 }
@@ -40,7 +40,7 @@ li {
 }
 
 @media (min-width: 768px) {
-	li {
+	.herb {
 		justify-content: space-between;
 	}
 	.description {

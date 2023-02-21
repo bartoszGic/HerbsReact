@@ -71,6 +71,7 @@ const HerbsList = () => {
     const herbsToBuy = HERBS.map(herb =>
         <Herb
             key={herb.id}
+            id={herb.id}
             name={herb.name}
             price1={herb.price1}
             price2={herb.price2}

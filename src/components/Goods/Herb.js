@@ -1,8 +1,13 @@
 import styles from '../../CSS/Herb.module.css'
 import HerbOrderDetail from './HerbOrderDetail'
 import { useState } from 'react'
+import { useContext } from 'react'
+import CartContext from '../store/cart-context'
+
 const Herb = (props) => {
     const [price, setPrice] = useState(props.price1)
+    const cartCtx = useContext(CartContext)
+
     const changeWeightHandl = (weight) => {
         if (weight === '10') {
             setPrice(props.price1)
@@ -11,15 +16,23 @@ const Herb = (props) => {
         } else if (weight === '100') {
             setPrice(props.price3)
         }
+
     }
 
+
     const addToCartHandl = (weight) => {
-        console.log(weight);
+
+        cartCtx.addHerb({
+            id: props.id,
+            name: props.name,
+            weight: weight,
+            price: price
+        })
     }
 
     return (
-        <li>
-            <div className={styles.herb}>
+        <li className={styles.herb}>
+            <div className={styles.herbImgContainer}>
                 <div className={styles.herbImg}>
                     <img src={props.img} alt={props.name} />
                 </div>
