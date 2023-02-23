@@ -7,6 +7,7 @@ import CartContext from '../store/cart-context'
 const Herb = (props) => {
     const [price, setPrice] = useState(props.price1)
     const cartCtx = useContext(CartContext)
+    const counter = 1
 
     const changeWeightHandl = (weight) => {
         if (weight === '10') {
@@ -26,6 +27,7 @@ const Herb = (props) => {
             id: props.id,
             name: props.name,
             weight: weight,
+            counter: counter,
             price: price
         })
     }
@@ -39,7 +41,7 @@ const Herb = (props) => {
             </div>
             <div className={styles.description}>
                 <h4 className={styles.name}>{props.name}</h4>
-                <div className={styles.price}>{price}</div>
+                <div className={styles.price}>{`${price.toFixed(2)} zł`}</div>
                 <div className={styles.herbOrderDetail}>
                     <HerbOrderDetail onAdd={addToCartHandl} onWeightChange={changeWeightHandl} />
                 </div>

@@ -11,9 +11,8 @@
 	background-color: #eae7b1;
 }
 .cartItems {
-	width: 100%;
 	margin: 0;
-	list-style: none;
 	max-height: 15rem;
+	justify-content: flex-start;
 	overflow: auto;
 }
