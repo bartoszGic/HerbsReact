@@ -22,15 +22,15 @@ const Herb = (props) => {
 
 
     const addToCartHandl = (weight) => {
-
         cartCtx.addHerb({
-            id: props.id,
+            id: props.id + weight,
             name: props.name,
             weight: weight,
             counter: counter,
             price: price
         })
     }
+
 
     return (
         <li className={styles.herb}>

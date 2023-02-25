@@ -3,40 +3,61 @@ import { useReducer } from "react";
 
 const cartDefaultState = {
     herbs: [],
-    sumAmount: 0
+    sumTotal: 0
 }
 
 const cartReducer = (state, action) => {
-
+    let updatedHerbs
     if (action.type === 'ADD') {
-        const updatedSumAmount = state.sumAmount + action.herb.price * action.herb.counter
         const existCartHerbIndex = state.herbs.findIndex(
-            herb => herb.id === action.herb.id
+            herb => herb.id + herb.weight === action.herb.id + herb.weight
         )
         const existCartHerb = state.herbs[existCartHerbIndex]
-        let updatedHerbs
+        let updatedHerb
+        const updatedsumTotal = state.sumTotal + action.herb.price
         if (existCartHerb) {
-            let updatedHerb
             updatedHerb = {
                 ...existCartHerb,
-                counter: existCartHerb.counter + action.herb.counter
+                counter: existCartHerb.counter + 1,
             }
             updatedHerbs = [...state.herbs]
             updatedHerbs[existCartHerbIndex] = updatedHerb
         } else {
             updatedHerbs = state.herbs.concat(action.herb)
         }
-
         return {
             herbs: updatedHerbs,
-            sumAmount: updatedSumAmount
+            sumTotal: updatedsumTotal,
+        }
+    }
+    if (action.type === 'REMOVE') {
+        console.log(state);
+        const existCartHerbIndex = state.herbs.findIndex(
+            herb => herb.id + herb.weight === action.id + herb.weight
+        )
+        const existCartHerb = state.herbs[existCartHerbIndex]
+        const updatedsumTotal = state.sumTotal - existCartHerb.price
+        if (existCartHerb.counter === 1) {
+            updatedHerbs = state.herbs.filter(herb => herb.id !== action.id)
+        }
+        else {
+            const updatedHerb = {
+                ...existCartHerb,
+                counter: existCartHerb.counter - 1
+            }
+            updatedHerbs = [...state.herbs]
+            updatedHerbs[existCartHerbIndex] = updatedHerb
+        }
+        return {
+            herbs: updatedHerbs,
+            sumTotal: updatedsumTotal,
         }
     }
     return cartDefaultState
 }
-
 const CartProvider = props => {
     const [state, dispatch] = useReducer(cartReducer, cartDefaultState)
+
 
     const addHerbToCartHandl = herb => {
         dispatch({ type: 'ADD', herb: herb })
@@ -44,10 +65,9 @@ const CartProvider = props => {
     const removeHerbFromCartHandl = id => {
         dispatch({ type: 'REMOVE', id: id })
     }
-
     const cartContext = {
         herbs: state.herbs,
-        sumAmount: state.sumAmount,
+        sumTotal: state.sumTotal,
         addHerb: addHerbToCartHandl,
         removeHerb: removeHerbFromCartHandl
     }

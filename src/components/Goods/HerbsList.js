@@ -73,7 +73,6 @@ const HerbsList = () => {
             key={herb.id}
             id={herb.id}
             name={herb.name}
-            amount={herb.amount}
             price1={herb.price1}
             price2={herb.price2}
             price3={herb.price3}

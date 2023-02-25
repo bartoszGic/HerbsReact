@@ -6,15 +6,19 @@ import CartHerb from './CartHerb'
 
 const Cart = (props) => {
     const cartCtx = useContext(CartContext)
-    const total = cartCtx.sumAmount.toFixed(2)
+    const total = cartCtx.sumTotal.toFixed(2)
     const hasHerbs = cartCtx.herbs.length > 0
 
-    const herbRemoveHandl = (id) => { }
+    const herbAddHandl = (herb) => {
+        cartCtx.addHerb(herb)
+    }
 
-    const herbAddHandl = (herb) => { }
+    const herbRemoveHandl = (id) => {
+        cartCtx.removeHerb(id)
+    }
 
-    const cartItems = (
-        <ul className={styles.cartItems}>
+    const cartHerbs = (
+        <ul className={styles.cartHerbs}>
             {cartCtx.herbs.map((herb) => (
                 <CartHerb
                     key={herb.id}
@@ -35,7 +39,7 @@ const Cart = (props) => {
                 <span>Total: </span>
                 <span>{`${total} zł`}</span>
             </div>
-            {cartItems}
+            {cartHerbs}
             <div className={styles.buttons}>
                 <button className={styles.closeBtn} onClick={props.onHideCart}>Close</button>
                 {hasHerbs && <button className={styles.orderBtn}>Order</button>}

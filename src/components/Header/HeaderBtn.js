@@ -8,7 +8,6 @@ const HeaderBtn = (props) => {
         return curNum + herb.weight / herb.weight
     }, 0)
 
-    console.log(typeof sumCartHerbs);
     return (
         <button className={styles.headerBtn} onClick={props.onClick}>
             <span>

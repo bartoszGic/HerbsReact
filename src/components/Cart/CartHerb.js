@@ -6,7 +6,7 @@ const CartHerb = (props) => {
         <li className={styles.cartHerb}>
             <p className={styles.cartHerbName}>{props.name}</p>
             <p className={styles.cartHerbWeight}>{`${props.weight}g x ${props.counter}`}</p>
-            <p className={styles.cartHerbPrice}>{`${price} zł`}</p>
+            <p className={styles.cartHerbPrice}>{`${price * props.counter} zł`}</p>
             <div className={styles.quantBtns}>
                 <button className={styles.addBtn} onClick={props.onAdd}>+</button>
                 <button className={styles.removeBtn} onClick={props.onRemove}>-</button>
