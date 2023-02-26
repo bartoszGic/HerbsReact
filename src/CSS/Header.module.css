@@ -2,13 +2,15 @@
 	position: fixed;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 	height: 4rem;
 	width: 100%;
-	background-color: #61876e;
+	background-color: #fff;
 	z-index: 1000;
 }
 .header h1 {
-	color: #eae7b1;
+	color: #000;
+	letter-spacing: 2px;
+	font-size: 1.4rem;
 	margin-left: 0.5rem;
 }

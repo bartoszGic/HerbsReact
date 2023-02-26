@@ -35,9 +35,7 @@ const Herb = (props) => {
     return (
         <li className={styles.herb}>
             <div className={styles.herbImgContainer}>
-                <div className={styles.herbImg}>
-                    <img src={props.img} alt={props.name} />
-                </div>
+                <img src={props.img} alt={props.name} />
             </div>
             <div className={styles.description}>
                 <h4 className={styles.name}>{props.name}</h4>
