@@ -3,10 +3,11 @@
 	align-items: center;
 	justify-content: flex-start;
 	margin: 0.5rem 0;
+	padding: 0.5rem 0.5rem;
 	width: 100%;
 	background-color: #fff;
 	border-radius: 1rem;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+	/* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); */
 	overflow: hidden;
 }
 .herbImgContainer {
@@ -24,27 +25,34 @@ img {
 	width: 150px;
 	height: 100px;
 	background-color: #fff;
+	margin-right: 1rem;
+}
+.herbInfos {
+	display: flex;
+	height: 100%;
+	width: 100%;
 }
 .description {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	justify-content: space-between;
+	height: 100%;
+	width: 100%;
 }
-.herbOrderDetail {
-	display: flex;
-	align-items: center;
+.name {
+	font-size: 1.25rem;
 }
-.name,
-.price,
-.herbOrderDetail {
-	margin-bottom: 0.25rem;
+.price {
+	font-weight: 700;
+}
+.price span {
+	font-size: 0.9rem;
+	font-weight: normal;
+	color: #aaa;
 }
 
 @media (min-width: 768px) {
 	.herb {
-		justify-content: space-between;
-	}
-	.description {
-		margin-right: 3rem;
+		margin: 0.5rem 0rem;
 	}
 }

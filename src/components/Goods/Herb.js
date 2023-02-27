@@ -37,14 +37,13 @@ const Herb = (props) => {
             <div className={styles.herbImgContainer}>
                 <img src={props.img} alt={props.name} />
             </div>
-            <div className={styles.description}>
-                <h4 className={styles.name}>{props.name}</h4>
-                <div className={styles.price}>{`${price.toFixed(2)} zł`}</div>
-                <div className={styles.herbOrderDetail}>
-                    <HerbOrderDetail onAdd={addToCartHandl} onWeightChange={changeWeightHandl} />
+            <div className={styles.herbInfos}>
+                <div className={styles.description}>
+                    <h4 className={styles.name}>{props.name}</h4>
+                    <div className={styles.price}>{`${price.toFixed(2)} `}<span>zł</span></div>
                 </div>
+                <HerbOrderDetail onAdd={addToCartHandl} onWeightChange={changeWeightHandl} />
             </div>
-
         </li>
     )
 }
