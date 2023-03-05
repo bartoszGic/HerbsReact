@@ -1,4 +1,3 @@
-import styles from '../../CSS/Cart.module.css'
 import Modal from '../UI/Modal'
 import CartContext from '../store/cart-context'
 import { useContext } from 'react'
@@ -18,7 +17,7 @@ const Cart = (props) => {
     }
 
     const cartHerbs = (
-        <ul className={styles.cartHerbs}>
+        <ul>
             {cartCtx.herbs.map((herb) => (
                 <CartHerb
                     key={herb.id}
@@ -35,14 +34,14 @@ const Cart = (props) => {
 
     return (
         <Modal onClick={props.onHideCart}>
-            <div className={styles.summary}>
+            <div>
                 <span>Total: </span>
                 <span>{`${total} zł`}</span>
             </div>
             {cartHerbs}
-            <div className={styles.buttons}>
-                <button className={styles.closeBtn} onClick={props.onHideCart}>Close</button>
-                {hasHerbs && <button className={styles.orderBtn}>Order</button>}
+            <div>
+                <button onClick={props.onHideCart}>Close</button>
+                {hasHerbs && <button>Order</button>}
             </div>
         </Modal>
     )

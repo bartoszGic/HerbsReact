@@ -1,4 +1,3 @@
-import styles from '../../CSS/Herb.module.css'
 import HerbOrderDetail from './HerbOrderDetail'
 import { useState } from 'react'
 import { useContext } from 'react'
@@ -33,14 +32,12 @@ const Herb = (props) => {
 
 
     return (
-        <li className={styles.herb}>
-            <div className={styles.herbImgContainer}>
-                <img src={props.img} alt={props.name} />
-            </div>
-            <div className={styles.herbInfos}>
-                <div className={styles.description}>
-                    <h4 className={styles.name}>{props.name}</h4>
-                    <div className={styles.price}>{`${price.toFixed(2)} `}<span>zł</span></div>
+        <li className='grid grid-cols-2 p-1'>
+            <img className='w-40 h-28' src={props.img} alt={props.name} />
+            <div className='flex flex-col justify-between'>
+                <div className='text-right'>
+                    <div className='font-bold'>{props.name}</div>
+                    <div className='text-slate-600 text-sm mt-1'>{`${price.toFixed(2)} `}<span>zł</span></div>
                 </div>
                 <HerbOrderDetail onAdd={addToCartHandl} onWeightChange={changeWeightHandl} />
             </div>

@@ -1,8 +1,8 @@
-import Goods from "./components/Goods/Goods";
-import Header from "./components/Header/Header";
 import Cart from "./components/Cart/Cart";
 import { useState } from "react";
 import CartProvider from "./components/store/CartProvider";
+import Header from "./components/Header/Header";
+import HerbsList from './components/Goods/HerbsList'
 
 function App() {
   const [cart, setCart] = useState(false)
@@ -18,7 +18,9 @@ function App() {
     <CartProvider>
       {cart && <Cart onHideCart={hideCartHandl} />}
       <Header onShowCart={showCartHandl} />
-      <Goods />
+      <main className="flex justify-center w-full">
+        <HerbsList />
+      </main>
     </CartProvider>
   );
 }

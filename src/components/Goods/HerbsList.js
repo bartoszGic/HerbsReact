@@ -1,4 +1,3 @@
-import styles from '../../CSS/HerbsList.module.css'
 import Herb from './Herb'
 import HERBS from '../../herbsPics/herbsPics'
 
@@ -17,11 +16,11 @@ const HerbsList = () => {
         />
     )
     return (
-        <section className={styles.herbsList}>
-            <ul>
+        <section className='flex pt-[48px] justify-center w-full max-w-4xl'>
+            <ul className='grid grid-cols-1 gap-x-16 gap-y-6 mt-1 md:grid-cols-2'>
                 {herbsToBuy}
             </ul>
-        </section>
+        </section >
     )
 }
 export default HerbsList
