@@ -32,12 +32,12 @@ const Herb = (props) => {
 
 
     return (
-        <li className='grid grid-cols-2 p-1'>
+        <li className='grid grid-cols-2 p-3'>
             <img className='w-40 h-28' src={props.img} alt={props.name} />
             <div className='flex flex-col justify-between'>
                 <div className='text-right'>
-                    <div className='font-bold'>{props.name}</div>
-                    <div className='text-slate-600 text-sm mt-1'>{`${price.toFixed(2)} `}<span>zł</span></div>
+                    <div className='font-bold text-lg'>{props.name}</div>
+                    <div className='text-slate-600 mt-1 font-bold'>{`${price.toFixed(2)} `}<span className='text-sm font-semibold'>zł</span></div>
                 </div>
                 <HerbOrderDetail onAdd={addToCartHandl} onWeightChange={changeWeightHandl} />
             </div>

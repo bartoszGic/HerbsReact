@@ -2,11 +2,15 @@ import { Fragment } from "react";
 import ReactDOM from "react-dom";
 
 const Backdrop = (props) => {
-    return <div onClick={props.onClick}></div>
+    return (
+        <div className="fixed bg-black/75 top-0 left-0 w-full h-full"
+            onClick={props.onClick}>
+        </div>
+    )
 }
 const ModalOverlay = (props) => {
     return (
-        <div>
+        <div className="fixed text-black bg-white top-16 left-4 right-4 p-4 rounded-xl animate-animeModal">
             <div>{props.children}</div>
         </div>
     )
