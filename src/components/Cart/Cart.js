@@ -27,6 +27,7 @@ const Cart = (props) => {
                     counter={herb.counter}
                     onRemove={() => herbRemoveHandl(herb.id)}
                     onAdd={() => herbAddHandl(herb)}
+                    img={herb.img}
                 />
             ))}
         </ul>

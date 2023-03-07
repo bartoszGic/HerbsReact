@@ -26,8 +26,10 @@ const Herb = (props) => {
             name: props.name,
             weight: weight,
             counter: counter,
-            price: price
+            price: price,
+            img: props.img
         })
+        console.log(props.img);
     }
 
 
@@ -36,7 +38,7 @@ const Herb = (props) => {
             <img className='w-40 h-28' src={props.img} alt={props.name} />
             <div className='flex flex-col justify-between'>
                 <div className='text-right'>
-                    <div className='font-bold text-lg'>{props.name}</div>
+                    <div className='font-bold text-lg text-gray-900'>{props.name}</div>
                     <div className='text-slate-600 mt-1 font-bold'>{`${price.toFixed(2)} `}<span className='text-sm font-semibold'>zł</span></div>
                 </div>
                 <HerbOrderDetail onAdd={addToCartHandl} onWeightChange={changeWeightHandl} />
