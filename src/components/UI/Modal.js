@@ -10,7 +10,7 @@ const Backdrop = (props) => {
 }
 const ModalOverlay = (props) => {
     return (
-        <div className="fixed text-black bg-white top-16 left-4 right-4 p-4 rounded-xl animate-animeModal">
+        <div className="fixed text-black bg-white top-16 p-4 left-1/2 -translate-x-1/2 rounded-xl animate-animeModal max-w-xl">
             <div>{props.children}</div>
         </div>
     )

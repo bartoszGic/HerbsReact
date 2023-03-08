@@ -17,7 +17,7 @@ const Cart = (props) => {
     }
 
     const cartHerbs = (
-        <ul className='overflow-auto max-h-96'>
+        <ul className='overflow-auto max-h-96 divide-y-'>
             {cartCtx.herbs.map((herb) => (
                 <CartHerb
                     key={herb.id}
@@ -36,15 +36,17 @@ const Cart = (props) => {
     return (
         <Modal onClick={props.onHideCart}>
             {cartHerbs}
-            <div>
-                <div>
-                    <span>Total: </span>
-                    <span>{`${total} zł`}</span>
-                </div>
-                <div>
-                    <button onClick={props.onHideCart}>Close</button>
-                    {hasHerbs && <button>Order</button>}
-                </div>
+            <div
+                className={`flex font-medium ${!hasHerbs ? 'justify-center' : 'justify-end'}`}>
+                <div>Total: {`${total} zł`}</div>
+            </div>
+            <div
+                className={`flex mt-2 ${!hasHerbs ? 'justify-center' : 'justify-between'}`}>
+                <button
+                    className='bg-teal-500 text-white rounded-xl px-3 py-1 transition duration-100 hover:opacity-90 active:animate-animeBtn'
+                    onClick={props.onHideCart}>Close</button>
+                {hasHerbs &&
+                    <button className='ml-4 bg-[#B81426] text-white rounded-xl px-3 py-1 transition duration-100 hover:opacity-90 active:animate-animeBtn'>Order</button>}
             </div>
         </Modal>
     )
