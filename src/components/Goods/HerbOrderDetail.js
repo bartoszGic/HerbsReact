@@ -24,7 +24,7 @@ const HerbOrderDetail = (props) => {
                 <option value="50">50g</option>
                 <option value="100">100g</option>
             </select>
-            <button className='bg-[#B81426] text-white rounded-2xl px-3 py-1 transition duration-100 hover:opacity-90'
+            <button className='bg-[#B81426] text-gray-50 rounded-2xl px-3 py-1 transition duration-100 hover:opacity-90'
                 onClick={addHandl}>Add</button>
         </div>
     )

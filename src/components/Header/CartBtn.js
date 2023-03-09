@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import CartContext from '../store/cart-context'
 
-const HeaderBtn = (props) => {
+const CartBtn = (props) => {
     const cartCtx = useContext(CartContext)
     const sumCartHerbs = cartCtx.herbs.reduce((curNum, herb) => {
         return curNum + herb.weight / herb.weight
@@ -21,4 +21,4 @@ const HeaderBtn = (props) => {
     )
 }
 
-export default HeaderBtn
+export default CartBtn

@@ -10,12 +10,11 @@ const Backdrop = (props) => {
 }
 const ModalOverlay = (props) => {
     return (
-        <div className="fixed text-black bg-white top-16 p-4 left-1/2 -translate-x-1/2 rounded-xl animate-animeModal max-w-xl">
+        <div className="fixed top-16 left-[5%] w-[90%] p-4 text-black bg-white rounded-xl  animate-animeModal sm:w-[30rem] sm:left-[calc(50%-15rem)]">
             <div>{props.children}</div>
         </div>
     )
 }
-
 const portalElement = document.getElementById('overlays')
 
 const Modal = (props) => {

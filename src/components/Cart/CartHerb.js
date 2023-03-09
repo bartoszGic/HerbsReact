@@ -13,8 +13,7 @@ const CartHerb = (props) => {
             </div>
 
             <div className="font-medium flex flex-col justify-between">
-                <div>{props.counter} <span className="text-xs">{`\u2715`}</span>
-                </div>
+                <div>{props.counter}</div>
                 <div className="text-sm font-medium">{`${price * props.counter} `}
                     <span className="text-sm font-normal">zł</span>
                 </div>
