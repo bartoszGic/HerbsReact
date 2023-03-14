@@ -1,5 +1,5 @@
 import Herb from './Herb'
-import HERBS from '../../herbsPics/herbsPics'
+import HERBS from '../../herbsDatas/herbsDatas'
 
 
 
