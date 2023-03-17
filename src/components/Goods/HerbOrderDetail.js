@@ -5,7 +5,7 @@ const HerbOrderDetail = (props) => {
     const refWeight = useRef(null)
 
 
-    const changeValueHandl = (e) => {
+    const changeWeightHandl = (e) => {
         props.onWeightChange(e.target.value)
     }
     const addHandl = () => {
@@ -19,7 +19,7 @@ const HerbOrderDetail = (props) => {
                 name="amount"
                 id="amount"
                 ref={refWeight}
-                onChange={changeValueHandl}>
+                onChange={changeWeightHandl}>
                 <option value="10">10g</option>
                 <option value="50">50g</option>
                 <option value="100">100g</option>

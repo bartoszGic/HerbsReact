@@ -7,7 +7,7 @@ const Header = (props) => {
             <section className='flex justify-between max-w-4xl mx-auto items-center p-2'>
                 <h1 className='text-2xl'>HerbsReact</h1>
                 <div className='flex'>
-                    <SearchBtn onClick={props.onShowSearchInput} />
+                    <SearchBtn onClick={props.onShowSearchInput} colorOfLoupe={props.colorOfLoupe} />
                     <CartBtn onClick={props.onShowCart} />
                 </div>
             </section>
