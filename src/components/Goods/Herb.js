@@ -29,7 +29,6 @@ const Herb = (props) => {
             price: price,
             img: props.img
         })
-        console.log(props.img);
     }
 
 

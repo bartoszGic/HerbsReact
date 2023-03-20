@@ -1,4 +1,4 @@
-import Modal from "./Modal"
+import Modal from "../UI/Modal"
 import HERBS from "../../herbsDatas/herbsDatas"
 import { useEffect, useState } from "react"
 
@@ -22,9 +22,9 @@ const SearchInput = (props) => {
             setError(true)
         } else {
             setError(false)
-            props.onOnColorHandler()
             props.onHideSearchInput()
         }
+
     }
 
     const filterHerbs = (input, herbs) => {
@@ -38,6 +38,8 @@ const SearchInput = (props) => {
 
     useEffect(() => {
         setinputValue(localStorage.getItem('searchValue'))
+        // localStorage.removeItem('searchValue')
+        console.log('effect');
     }, [])
 
     return (
