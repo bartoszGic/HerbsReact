@@ -13,6 +13,7 @@ const SearchInput = (props) => {
     const searchHandler = (e) => {
         e.preventDefault()
         localStorage.setItem('searchValue', inputValue)
+        console.log(localStorage.getItem('searchValue'));
         props.actualHerbList(filtredHerbs)
         inputValueValidation()
     }
@@ -37,10 +38,13 @@ const SearchInput = (props) => {
     const filtredHerbs = filterHerbs(inputValue, HERBS)
 
     useEffect(() => {
-        setinputValue(localStorage.getItem('searchValue'))
+        if (typeof localStorage.getItem('searchValue') === 'string') {
+            setinputValue(localStorage.getItem('searchValue'))
+        };
         // localStorage.removeItem('searchValue')
         console.log('effect');
     }, [])
+
 
     return (
         <Modal onClick={props.onHideSearchInput}>
