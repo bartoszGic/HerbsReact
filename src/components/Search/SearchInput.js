@@ -1,5 +1,4 @@
 import Modal from "../UI/Modal"
-import HERBS from "../../herbsDatas/herbsDatas"
 import { useEffect, useState } from "react"
 
 const SearchInput = (props) => {
@@ -10,11 +9,10 @@ const SearchInput = (props) => {
     const getInput = (e) => {
         setinputValue(e.target.value)
     }
-    const searchHandler = (e) => {
+    const searchBtnHandler = (e) => {
         e.preventDefault()
         localStorage.setItem('searchValue', inputValue)
-        console.log(localStorage.getItem('searchValue'));
-        props.actualHerbList(filtredHerbs)
+        props.onFilterListHandler(filtredHerbs)
         inputValueValidation()
     }
 
@@ -35,20 +33,18 @@ const SearchInput = (props) => {
         return herbs.filter(herb => herb.name.toLowerCase().includes(input.toString().toLowerCase()))
     }
 
-    const filtredHerbs = filterHerbs(inputValue, HERBS)
-
+    const filtredHerbs = filterHerbs(inputValue, props.downloadedList)
+    console.log(filtredHerbs);
     useEffect(() => {
         if (typeof localStorage.getItem('searchValue') === 'string') {
             setinputValue(localStorage.getItem('searchValue'))
         };
-        // localStorage.removeItem('searchValue')
-        console.log('effect');
     }, [])
 
 
     return (
         <Modal onClick={props.onHideSearchInput}>
-            <form className="flex justify-center" onSubmit={searchHandler}>
+            <form className="flex justify-center" onSubmit={searchBtnHandler}>
                 <input className="appearance-none border py-2 px-3 text-gray-700 leading-tight rounded-xl w-4/6"
                     type="text"
                     id='searchingHerb'

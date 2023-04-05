@@ -4,7 +4,6 @@ const HerbOrderDetail = (props) => {
 
     const refWeight = useRef(null)
 
-
     const changeWeightHandl = (e) => {
         props.onWeightChange(e.target.value)
     }
