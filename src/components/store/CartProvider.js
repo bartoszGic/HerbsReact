@@ -31,7 +31,6 @@ const cartReducer = (state, action) => {
         }
     }
     if (action.type === 'REMOVE') {
-        console.log(state);
         const existCartHerbIndex = state.herbs.findIndex(
             herb => herb.id + herb.weight === action.id + herb.weight
         )

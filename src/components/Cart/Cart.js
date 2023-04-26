@@ -1,37 +1,43 @@
+import { useDispatch, useSelector } from 'react-redux'
 import Modal from '../UI/Modal'
-import CartContext from '../store/cart-context'
-import { useContext } from 'react'
-import CartHerb from './CartHerb'
+// import CartContext from '../store/cart-context'
+// import { useContext } from 'react'
+// import CartHerb from './CartHerb'
+import { herbsActions } from '../store/herbs-slice'
 
 const Cart = (props) => {
-    const cartCtx = useContext(CartContext)
-    const total = cartCtx.sumTotal.toFixed(2)
-    const hasHerbs = cartCtx.herbs.length > 0
+
+    const dispatch = useDispatch()
+    // const cartCtx = useContext(CartContext)
+    const total = useSelector(state => state.cartHerbs.sumTotal.toFixed(2))
+    const hasHerbs = dispatch.herbs.length > 0
 
     const herbAddHandl = (herb) => {
-        cartCtx.addHerb(herb)
+        dispatch(herbsActions.addToCart(herb))
     }
 
-    const herbRemoveHandl = (id) => {
-        cartCtx.removeHerb(id)
-    }
+    // const herbRemoveHandl = (id) => {
+    //     cartCtx.removeHerb(id)
+    // }
 
-    const cartHerbs = (
-        <ul className='overflow-auto max-h-96 divide-y'>
-            {cartCtx.herbs.map((herb) => (
-                <CartHerb
-                    key={herb.id}
-                    name={herb.name}
-                    weight={herb.weight}
-                    price={herb.price}
-                    counter={herb.counter}
-                    onRemove={() => herbRemoveHandl(herb.id)}
-                    onAdd={() => herbAddHandl(herb)}
-                    img={herb.img}
-                />
-            ))}
-        </ul>
-    )
+    // const cartHerbs = (
+    //     <ul className='overflow-auto max-h-96 divide-y'>
+    //         {cartCtx.herbs.map((herb) => (
+    //             <CartHerb
+    //                 key={herb.id}
+    //                 name={herb.name}
+    //                 weight={herb.weight}
+    //                 price={herb.price}
+    //                 counter={herb.counter}
+    //                 // onRemove={() => herbRemoveHandl(herb.id)}
+    //                 onAdd={() => herbAddHandl(herb)}
+    //                 img={herb.img}
+    //             />
+    //         ))}
+    //     </ul>
+    // )
+
+
 
     return (
         <Modal onClick={props.onHideCart}>

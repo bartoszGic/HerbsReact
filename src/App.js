@@ -15,23 +15,18 @@ function App() {
   const [loadingState, setLoadingState] = useState(true)
   const [httpsError, setHttpsError] = useState(false)
 
-  const showCartHandler = () => {
-    setCart(true)
+  const toggleCartHandler = () => {
+    setCart(prevState => !prevState)
   }
-  const hideCartHandler = () => {
-    setCart(false)
-  }
-  const showSearchInputHandler = () => {
-    setSearch(true)
-  }
-  const hideSearchInputHandler = () => {
-    setSearch(false)
+  const toggleSearchInputHandler = () => {
+    setSearch(prevState => !prevState)
   }
   const filterListHandler = (filter) => {
     setFiltredHerbList(filter)
   }
 
   useEffect(() => {
+    console.log('effect');
     const fetchHerbs = async () => {
       const loadedHerbs = []
       try {
@@ -77,15 +72,15 @@ function App() {
   }
   return (
     <CartProvider>
-      {cart && <Cart onHideCart={hideCartHandler} />}
+      {cart && <Cart onHideCart={toggleCartHandler} />}
       {search && <SearchInput
-        onHideSearchInput={hideSearchInputHandler}
+        onHideSearchInput={toggleSearchInputHandler}
         downloadedList={loadedHerbsList}
         onFilterListHandler={filterListHandler}
       />}
       <Header
-        onShowCart={showCartHandler}
-        onShowSearchInput={showSearchInputHandler} />
+        onShowCart={toggleCartHandler}
+        onShowSearchInput={toggleSearchInputHandler} />
       <main className="flex justify-center w-full">
         <HerbsList downloadedList={loadedHerbsList} filtredList={filtredHerbsList} />
       </main>
