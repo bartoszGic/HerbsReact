@@ -1,10 +1,13 @@
 import Modal from "../UI/Modal"
 import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
+import { storeHerbsActions } from "../store/storedHerbs-slice"
 
 const SearchInput = (props) => {
 
     const [inputValue, setinputValue] = useState('')
     const [error, setError] = useState(false)
+    const dispatch = useDispatch()
 
     const getInput = (e) => {
         setinputValue(e.target.value)
@@ -35,6 +38,8 @@ const SearchInput = (props) => {
 
     const filtredHerbs = filterHerbs(inputValue, props.downloadedList)
     console.log(filtredHerbs);
+    console.log(dispatch(storeHerbsActions.loadDownloadedHerbs(props.downloadedList)));
+
     useEffect(() => {
         if (typeof localStorage.getItem('searchValue') === 'string') {
             setinputValue(localStorage.getItem('searchValue'))

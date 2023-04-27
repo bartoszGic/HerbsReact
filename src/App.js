@@ -1,6 +1,5 @@
 import Cart from "./components/Cart/Cart";
 import { useState, useEffect } from "react";
-import CartProvider from "./components/store/CartProvider";
 import Header from "./components/Header/Header";
 import HerbsList from './components/Goods/HerbsList'
 import SearchInput from "./components/Search/SearchInput";
@@ -26,7 +25,6 @@ function App() {
   }
 
   useEffect(() => {
-    console.log('effect');
     const fetchHerbs = async () => {
       const loadedHerbs = []
       try {
@@ -71,7 +69,7 @@ function App() {
     )
   }
   return (
-    <CartProvider>
+    <>
       {cart && <Cart onHideCart={toggleCartHandler} />}
       {search && <SearchInput
         onHideSearchInput={toggleSearchInputHandler}
@@ -84,7 +82,7 @@ function App() {
       <main className="flex justify-center w-full">
         <HerbsList downloadedList={loadedHerbsList} filtredList={filtredHerbsList} />
       </main>
-    </CartProvider>
+    </>
   );
 }
 

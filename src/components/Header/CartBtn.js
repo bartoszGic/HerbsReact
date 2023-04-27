@@ -1,9 +1,9 @@
-import { useContext } from 'react'
-import CartContext from '../store/cart-context'
+import { useSelector } from "react-redux"
+
 
 const CartBtn = (props) => {
-    const cartCtx = useContext(CartContext)
-    const sumCartHerbs = cartCtx.herbs.reduce((curNum, herb) => {
+    const cartHerbs = useSelector(state => state.cartHerbs.herbs)
+    const sumCartHerbs = cartHerbs.reduce((curNum, herb) => {
         return curNum + herb.weight / herb.weight
     }, 0)
 

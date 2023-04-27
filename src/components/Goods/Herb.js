@@ -1,14 +1,10 @@
 import HerbOrderDetail from './HerbOrderDetail'
 import { useState } from 'react'
-import { herbsActions } from '../store/herbs-slice'
+import { herbsActions } from '../store/cartHerbs-slice'
 import { useDispatch } from 'react-redux'
-// import { useContext } from 'react'
-// import CartContext from '../store/cart-context'
-// import { useSelector, useDispatch } from 'react-redux'
 
 const Herb = (props) => {
     const [price, setPrice] = useState(props.price1)
-    // const cartCtx = useContext(CartContext)
     const counter = 1
     const dispatch = useDispatch()
 
@@ -24,17 +20,6 @@ const Herb = (props) => {
     }
 
 
-    // const addToCartHandl = (weight) => {
-    //     cartCtx.addHerb({
-    //         id: props.id + weight,
-    //         name: props.name,
-    //         weight: weight,
-    //         counter: counter,
-    //         price: price,
-    //         img: props.img
-    //     })
-    // }
-
     const addToCartHandl = (weight) => {
         dispatch(herbsActions.addToCart({
             id: props.id + weight,
@@ -44,7 +29,6 @@ const Herb = (props) => {
             price: price,
             img: props.img
         }));
-        // console.log(sumTotal);
     }
 
 
