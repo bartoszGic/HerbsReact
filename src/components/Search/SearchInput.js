@@ -7,6 +7,8 @@ const SearchInput = (props) => {
 
     const [inputValue, setinputValue] = useState('')
     const [error, setError] = useState(false)
+    let TEST = [1, 2]
+
     const dispatch = useDispatch()
 
     const getInput = (e) => {
@@ -14,31 +16,30 @@ const SearchInput = (props) => {
     }
     const searchBtnHandler = (e) => {
         e.preventDefault()
+        dispatch(storeHerbsActions.searchInDownloadedHerbs(inputValue));
         localStorage.setItem('searchValue', inputValue)
-        props.onFilterListHandler(filtredHerbs)
+        props.onFilterListHandler()
         inputValueValidation()
     }
 
     const inputValueValidation = () => {
-        if (filtredHerbs.length === 0) {
+        if (TEST.length === 0) {
             setError(true)
         } else {
             setError(false)
             props.onHideSearchInput()
         }
-
     }
 
-    const filterHerbs = (input, herbs) => {
-        if (input === '') {
-            return herbs
-        }
-        return herbs.filter(herb => herb.name.toLowerCase().includes(input.toString().toLowerCase()))
-    }
+    // const filterHerbs = (input, herbs) => {
+    //     if (input === '') {
+    //         return herbs
+    //     }
+    //     return herbs.filter(herb => herb.name.toLowerCase().includes(input.toString().toLowerCase()))
+    // }
 
-    const filtredHerbs = filterHerbs(inputValue, props.downloadedList)
-    console.log(filtredHerbs);
-    console.log(dispatch(storeHerbsActions.loadDownloadedHerbs(props.downloadedList)));
+    // const filtredHerbs = filterHerbs(inputValue, props.downloadedList)
+
 
     useEffect(() => {
         if (typeof localStorage.getItem('searchValue') === 'string') {

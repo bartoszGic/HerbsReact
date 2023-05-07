@@ -1,14 +1,20 @@
+import { useSelector } from 'react-redux';
 import Herb from './Herb'
 
 
 const HerbsList = (props) => {
+    console.log('HerbsList');
     let herbsToBuy
+    // herbsToBuy = props.downloadedList
 
-    if (props.downloadedList === props.filtredList) {
+    const storedList = useSelector(state => state.searchHerbs.storeHerbs)
+    const filtredList = useSelector(state => state.searchHerbs.filterHerbs)
+    if (storedList.length === filtredList.length) {
         herbsToBuy = props.downloadedList
     } else {
-        herbsToBuy = props.filtredList
+        herbsToBuy = filtredList
     }
+
 
     return (
         <section className='flex pt-[48px] justify-center w-full max-w-4xl'>

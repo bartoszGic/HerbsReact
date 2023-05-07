@@ -3,18 +3,28 @@ import { createSlice } from "@reduxjs/toolkit";
 const storeHerbsSlice = createSlice({
     name: 'store',
     initialState: {
-        storeHerbs: []
+        storeHerbs: [],
+        filterHerbs: []
     },
     reducers: {
-        loadDownloadedHerbs(action) {
-            return {
-                storeHerbs: action.payload
-            }
+        loadDownloadedHerbs(state, action) {
+            const allHerbs = action.payload
+            state.storeHerbs = allHerbs
+            state.filterHerbs = allHerbs
         },
         searchInDownloadedHerbs(state, action) {
-            let searchedHerbs
-            return {
-                storeHerbs: searchedHerbs
+            const searchedInputValue = action.payload
+            if (searchedInputValue === '') {
+                return {
+                    storeHerbs: state.storeHerbs,
+                    filterHerbs: state.filterHerbs
+                }
+            } else {
+                const filtredHerbs = state.storeHerbs.filter(herb => herb.name.toLowerCase().includes(searchedInputValue.toString().toLowerCase()))
+                return {
+                    storeHerbs: state.storeHerbs,
+                    filterHerbs: filtredHerbs
+                }
             }
         }
     }

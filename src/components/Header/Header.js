@@ -13,7 +13,10 @@ const Header = (props) => {
                     <h1 className='text-2xl'>HerbsReact</h1>
                 </button>
                 <div className='flex'>
-                    <SearchBtn onClick={props.onShowSearchInput} />
+                    <SearchBtn
+                        onClick={props.onShowSearchInput}
+                        onLoadDownloadedHerbsToStore={props.onLoadDownloadedHerbsToStore}
+                    />
                     <CartBtn onClick={props.onShowCart} />
                 </div>
             </section>

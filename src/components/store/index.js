@@ -7,7 +7,7 @@ import storeHerbsSlice from './storedHerbs-slice'
 const store = configureStore({
     reducer: {
         cartHerbs: herbsSlice.reducer,
-        storeHerbs: storeHerbsSlice.reducer
+        searchHerbs: storeHerbsSlice.reducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 })

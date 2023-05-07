@@ -5,6 +5,8 @@ import HerbsList from './components/Goods/HerbsList'
 import SearchInput from "./components/Search/SearchInput";
 import { db } from "./firebase-config";
 import { collection, getDocs } from 'firebase/firestore'
+import { useDispatch } from "react-redux";
+import { storeHerbsActions } from "./components/store/storedHerbs-slice";
 
 function App() {
   const [cart, setCart] = useState(false)
@@ -14,17 +16,23 @@ function App() {
   const [loadingState, setLoadingState] = useState(true)
   const [httpsError, setHttpsError] = useState(false)
 
+  const dispatch = useDispatch()
+
   const toggleCartHandler = () => {
     setCart(prevState => !prevState)
   }
   const toggleSearchInputHandler = () => {
     setSearch(prevState => !prevState)
   }
-  const filterListHandler = (filter) => {
-    setFiltredHerbList(filter)
+  const filterListHandler = () => {
+    setFiltredHerbList(filtredHerbsList)
+  }
+  const loadDownloadedHerbsToStore = () => {
+    dispatch(storeHerbsActions.loadDownloadedHerbs(loadedHerbsList))
   }
 
   useEffect(() => {
+    console.log('effect');
     const fetchHerbs = async () => {
       const loadedHerbs = []
       try {
@@ -78,9 +86,12 @@ function App() {
       />}
       <Header
         onShowCart={toggleCartHandler}
-        onShowSearchInput={toggleSearchInputHandler} />
+        onShowSearchInput={toggleSearchInputHandler}
+        onLoadDownloadedHerbsToStore={loadDownloadedHerbsToStore}
+      />
       <main className="flex justify-center w-full">
-        <HerbsList downloadedList={loadedHerbsList} filtredList={filtredHerbsList} />
+        <HerbsList
+          downloadedList={loadedHerbsList} />
       </main>
     </>
   );
