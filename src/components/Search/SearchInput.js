@@ -1,13 +1,13 @@
 import Modal from "../UI/Modal"
 import { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { storeHerbsActions } from "../store/storedHerbs-slice"
 
 const SearchInput = (props) => {
 
     const [inputValue, setinputValue] = useState('')
     const [error, setError] = useState(false)
-    let TEST = [1, 2]
+    const quantOfFindedHerbs = useSelector(state => state.searchHerbs.filterHerbs)
 
     const dispatch = useDispatch()
 
@@ -16,36 +16,31 @@ const SearchInput = (props) => {
     }
     const searchBtnHandler = (e) => {
         e.preventDefault()
-        dispatch(storeHerbsActions.searchInDownloadedHerbs(inputValue));
+        const test = dispatch(storeHerbsActions.searchInDownloadedHerbs(inputValue));
         localStorage.setItem('searchValue', inputValue)
-        props.onFilterListHandler()
-        inputValueValidation()
+        console.log(quantOfFindedHerbs);
     }
 
-    const inputValueValidation = () => {
-        if (TEST.length === 0) {
-            setError(true)
-        } else {
-            setError(false)
-            props.onHideSearchInput()
-        }
-    }
-
-    // const filterHerbs = (input, herbs) => {
-    //     if (input === '') {
-    //         return herbs
+    // const existHerbValidation = () => {
+    //     if (quantOfFindedHerbs.length === 0) {
+    //         setError(true)
+    //     } else {
+    //         setError(false)
+    //         props.onHideSearchInput()
     //     }
-    //     return herbs.filter(herb => herb.name.toLowerCase().includes(input.toString().toLowerCase()))
     // }
 
-    // const filtredHerbs = filterHerbs(inputValue, props.downloadedList)
-
-
     useEffect(() => {
+        console.log('searchInput-Effect');
         if (typeof localStorage.getItem('searchValue') === 'string') {
             setinputValue(localStorage.getItem('searchValue'))
         };
-    }, [])
+        if (quantOfFindedHerbs.length === 0) {
+            setError(true)
+        } else {
+            setError(false)
+        }
+    }, [quantOfFindedHerbs, setinputValue, setError])
 
 
     return (

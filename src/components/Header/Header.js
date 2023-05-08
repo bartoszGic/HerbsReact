@@ -15,7 +15,6 @@ const Header = (props) => {
                 <div className='flex'>
                     <SearchBtn
                         onClick={props.onShowSearchInput}
-                        onLoadDownloadedHerbsToStore={props.onLoadDownloadedHerbsToStore}
                     />
                     <CartBtn onClick={props.onShowCart} />
                 </div>

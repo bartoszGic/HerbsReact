@@ -1,18 +1,17 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 import Herb from './Herb'
 
 
-const HerbsList = (props) => {
+const HerbsList = () => {
     console.log('HerbsList');
     let herbsToBuy
-    // herbsToBuy = props.downloadedList
+    const allHerbs = useSelector(state => state.searchHerbs.storeHerbs)
+    const filtredHerbs = useSelector(state => state.searchHerbs.filterHerbs)
 
-    const storedList = useSelector(state => state.searchHerbs.storeHerbs)
-    const filtredList = useSelector(state => state.searchHerbs.filterHerbs)
-    if (storedList.length === filtredList.length) {
-        herbsToBuy = props.downloadedList
+    if (allHerbs.length === filtredHerbs.length) {
+        herbsToBuy = allHerbs
     } else {
-        herbsToBuy = filtredList
+        herbsToBuy = filtredHerbs
     }
 
 

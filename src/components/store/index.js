@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import logger from 'redux-logger'
+// import logger from 'redux-logger'
 
 import herbsSlice from './cartHerbs-slice'
 import storeHerbsSlice from './storedHerbs-slice'
@@ -9,7 +9,7 @@ const store = configureStore({
         cartHerbs: herbsSlice.reducer,
         searchHerbs: storeHerbsSlice.reducer
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+    // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 })
 
 export default store

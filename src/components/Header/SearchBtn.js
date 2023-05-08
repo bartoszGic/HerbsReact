@@ -6,14 +6,11 @@ const SearchBtn = (props) => {
     } else {
         colorOfLoupe = 'text-white'
     }
-    const combFunc = () => {
-        props.onClick()
-        props.onLoadDownloadedHerbsToStore()
-    }
+
 
     return (
         <button className='flex group items-center bg-teal-400 rounded-2xl mr-2 py-1 px-2 opacity-80 transition duration-200 hover:shadow-none hover:opacity-100 max-sm:focus:opacity-100'
-            onClick={combFunc}
+            onClick={props.onClick}
         >
             <span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6  ${colorOfLoupe}`}>

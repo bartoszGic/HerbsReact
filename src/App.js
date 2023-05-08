@@ -11,8 +11,8 @@ import { storeHerbsActions } from "./components/store/storedHerbs-slice";
 function App() {
   const [cart, setCart] = useState(false)
   const [search, setSearch] = useState(false)
-  const [loadedHerbsList, setLoadedHerbsList] = useState([])
-  const [filtredHerbsList, setFiltredHerbList] = useState([])
+  const [loadList, setLoadList] = useState(false)
+
   const [loadingState, setLoadingState] = useState(true)
   const [httpsError, setHttpsError] = useState(false)
 
@@ -24,17 +24,11 @@ function App() {
   const toggleSearchInputHandler = () => {
     setSearch(prevState => !prevState)
   }
-  const filterListHandler = () => {
-    setFiltredHerbList(filtredHerbsList)
-  }
-  const loadDownloadedHerbsToStore = () => {
-    dispatch(storeHerbsActions.loadDownloadedHerbs(loadedHerbsList))
-  }
 
   useEffect(() => {
-    console.log('effect');
+    console.log('App effect');
+    const loadedHerbs = []
     const fetchHerbs = async () => {
-      const loadedHerbs = []
       try {
         const herbsCollectionRef = collection(db, 'herbs')
         const herbsDocs = await getDocs(herbsCollectionRef)
@@ -49,17 +43,17 @@ function App() {
             img: doc.data().img
           })
         })
+        dispatch(storeHerbsActions.loadDownloadedHerbs(loadedHerbs))
+        setLoadList(true)
       }
       catch {
         setHttpsError(true)
         console.error('Server error !!!')
       }
-      setLoadedHerbsList(loadedHerbs)
-      setFiltredHerbList(loadedHerbs)
     }
     fetchHerbs()
     setLoadingState(false)
-  }, [])
+  }, [dispatch])
 
 
   if (loadingState) {
@@ -78,20 +72,21 @@ function App() {
   }
   return (
     <>
-      {cart && <Cart onHideCart={toggleCartHandler} />}
-      {search && <SearchInput
-        onHideSearchInput={toggleSearchInputHandler}
-        downloadedList={loadedHerbsList}
-        onFilterListHandler={filterListHandler}
-      />}
+      {cart &&
+        <Cart
+          onHideCart={toggleCartHandler} />}
+      {search &&
+        <SearchInput
+          onHideSearchInput={toggleSearchInputHandler}
+        />}
       <Header
         onShowCart={toggleCartHandler}
         onShowSearchInput={toggleSearchInputHandler}
-        onLoadDownloadedHerbsToStore={loadDownloadedHerbsToStore}
       />
       <main className="flex justify-center w-full">
         <HerbsList
-          downloadedList={loadedHerbsList} />
+          loadedListOfHerbs={loadList}
+        />
       </main>
     </>
   );
