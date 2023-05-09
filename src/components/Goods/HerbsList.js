@@ -3,7 +3,6 @@ import Herb from './Herb'
 
 
 const HerbsList = () => {
-    console.log('HerbsList');
     let herbsToBuy
     const allHerbs = useSelector(state => state.searchHerbs.storeHerbs)
     const filtredHerbs = useSelector(state => state.searchHerbs.filterHerbs)

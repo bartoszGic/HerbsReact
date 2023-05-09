@@ -26,7 +26,6 @@ function App() {
   }
 
   useEffect(() => {
-    console.log('App effect');
     const loadedHerbs = []
     const fetchHerbs = async () => {
       try {

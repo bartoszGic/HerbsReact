@@ -14,10 +14,10 @@ const storeHerbsSlice = createSlice({
         },
         searchInDownloadedHerbs(state, action) {
             const searchedInputValue = action.payload
-            if (searchedInputValue === '') {
+            if (searchedInputValue.trim() === '') {
                 return {
                     storeHerbs: state.storeHerbs,
-                    filterHerbs: state.filterHerbs
+                    filterHerbs: state.storeHerbs
                 }
             } else {
                 const filtredHerbs = state.storeHerbs.filter(herb => herb.name.toLowerCase().includes(searchedInputValue.toString().toLowerCase()))

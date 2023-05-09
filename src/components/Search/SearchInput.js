@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { storeHerbsActions } from "../store/storedHerbs-slice"
 
 const SearchInput = (props) => {
-
+    console.log('SearchInput');
     const [inputValue, setinputValue] = useState('')
     const [error, setError] = useState(false)
     const quantOfFindedHerbs = useSelector(state => state.searchHerbs.filterHerbs)
@@ -16,19 +16,10 @@ const SearchInput = (props) => {
     }
     const searchBtnHandler = (e) => {
         e.preventDefault()
-        const test = dispatch(storeHerbsActions.searchInDownloadedHerbs(inputValue));
+        dispatch(storeHerbsActions.searchInDownloadedHerbs(inputValue));
         localStorage.setItem('searchValue', inputValue)
-        console.log(quantOfFindedHerbs);
+        console.log(typeof localStorage.getItem('searchValue'));
     }
-
-    // const existHerbValidation = () => {
-    //     if (quantOfFindedHerbs.length === 0) {
-    //         setError(true)
-    //     } else {
-    //         setError(false)
-    //         props.onHideSearchInput()
-    //     }
-    // }
 
     useEffect(() => {
         console.log('searchInput-Effect');
@@ -40,7 +31,7 @@ const SearchInput = (props) => {
         } else {
             setError(false)
         }
-    }, [quantOfFindedHerbs, setinputValue, setError])
+    }, [quantOfFindedHerbs])
 
 
     return (
