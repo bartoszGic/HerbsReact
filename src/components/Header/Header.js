@@ -4,7 +4,6 @@ import SearchBtn from './SearchBtn'
 const Header = (props) => {
     const pageRefresher = () => {
         window.location.reload()
-        localStorage.removeItem('searchValue')
     }
     return (
         <header className='fixed bg-teal-500 text-white w-full'>

@@ -9,6 +9,7 @@ const storeSearchInputSlice = createSlice({
         loadInputValue(state, action) {
             const inputValue = action.payload
             state.inputValue = inputValue
+            console.log(state);
         }
     }
 })

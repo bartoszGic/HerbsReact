@@ -1,10 +1,11 @@
+import { useSelector } from "react-redux";
 const SearchBtn = (props) => {
     let colorOfLoupe
-    if (localStorage.getItem('searchValue') !== null) {
-        const storedSearchInput = localStorage.getItem('searchValue');
-        storedSearchInput.trim() !== '' ? colorOfLoupe = 'text-[#B81426]' : colorOfLoupe = 'text-white'
-    } else {
+    const stateOfInput = useSelector(state => state.inputValue.inputValue)
+    if (stateOfInput.trim() === '') {
         colorOfLoupe = 'text-white'
+    } else {
+        colorOfLoupe = 'text-[#B81426]'
     }
 
 

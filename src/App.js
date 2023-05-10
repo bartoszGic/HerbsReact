@@ -9,9 +9,9 @@ import { useDispatch } from "react-redux";
 import { storeHerbsActions } from "./components/store/storedHerbs-slice";
 
 function App() {
+  console.log('App');
   const [cart, setCart] = useState(false)
   const [search, setSearch] = useState(false)
-  const [loadList, setLoadList] = useState(false)
 
   const [loadingState, setLoadingState] = useState(true)
   const [httpsError, setHttpsError] = useState(false)
@@ -26,6 +26,7 @@ function App() {
   }
 
   useEffect(() => {
+    console.log('App-useEffect');
     const loadedHerbs = []
     const fetchHerbs = async () => {
       try {
@@ -43,7 +44,6 @@ function App() {
           })
         })
         dispatch(storeHerbsActions.loadDownloadedHerbs(loadedHerbs))
-        setLoadList(true)
       }
       catch {
         setHttpsError(true)
@@ -83,9 +83,7 @@ function App() {
         onShowSearchInput={toggleSearchInputHandler}
       />
       <main className="flex justify-center w-full">
-        <HerbsList
-          loadedListOfHerbs={loadList}
-        />
+        <HerbsList />
       </main>
     </>
   );
