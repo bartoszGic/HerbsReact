@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { storeHerbsActions } from "./components/store/storedHerbs-slice";
 
 function App() {
-  console.log('App');
+  // console.log('App');
   const [cart, setCart] = useState(false)
   const [search, setSearch] = useState(false)
 
@@ -26,7 +26,7 @@ function App() {
   }
 
   useEffect(() => {
-    console.log('App-useEffect');
+    // console.log('App-useEffect');
     const loadedHerbs = []
     const fetchHerbs = async () => {
       try {

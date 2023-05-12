@@ -1,15 +1,12 @@
 import Modal from "../UI/Modal"
-import SearchInfoMsg from './SearchInfoMsg'
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { storeHerbsActions } from "../store/storedHerbs-slice"
 import { storeSearchInputActions } from "../store/storeInput-slice"
 
 const SearchInput = (props) => {
     console.log('SearchInput');
-    const quantOfFindedHerbs = useSelector(state => state.searchHerbs.filterHerbs)
     const stateOfInput = useSelector(state => state.inputValue.inputValue)
-    const [msg, setMsg] = useState(null)
     const [inputValue, setinputValue] = useState(stateOfInput)
 
     const dispatch = useDispatch()
@@ -21,16 +18,8 @@ const SearchInput = (props) => {
         e.preventDefault()
         dispatch(storeHerbsActions.searchInDownloadedHerbs(inputValue));
         dispatch(storeSearchInputActions.loadInputValue(inputValue))
-        // setMsg(true)
+        props.onHideSearchInput()
     }
-
-    useEffect(() => {
-        if (quantOfFindedHerbs.length === 0) {
-            setMsg(true)
-        } else {
-            setMsg(false)
-        }
-    }, [quantOfFindedHerbs])
 
 
     return (
@@ -45,7 +34,6 @@ const SearchInput = (props) => {
                 />
                 <button type="submit" className='ml-4 bg-[#B81426] text-gray-50 rounded-xl px-3 py-1 transition duration-100 hover:opacity-90 active:animate-animeBtn'>Search</button>
             </form>
-            {msg && <SearchInfoMsg onClick={props.onHideSearchInput} />}
         </Modal>
     )
 }
