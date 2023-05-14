@@ -3,7 +3,7 @@ import Herb from './Herb'
 
 
 const HerbsList = () => {
-    console.log('HerbsList');
+    // console.log('HerbsList');
     let herbsToBuy
     let errorMsg = false
     const allHerbs = useSelector(state => state.searchHerbs.storeHerbs)

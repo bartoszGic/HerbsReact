@@ -11,9 +11,6 @@ const SearchInput = (props) => {
 
     const dispatch = useDispatch()
 
-    const getInput = (e) => {
-        setinputValue(e.target.value)
-    }
     const searchBtnHandler = (e) => {
         e.preventDefault()
         dispatch(storeHerbsActions.searchInDownloadedHerbs(inputValue));
@@ -25,11 +22,11 @@ const SearchInput = (props) => {
     return (
         <Modal onClick={props.onHideSearchInput}>
             <form className="flex justify-center" onSubmit={searchBtnHandler}>
-                <input className="appearance-none border py-2 px-3 text-gray-700 leading-tight rounded-xl w-4/6"
+                <input className="border py-2 px-3 text-gray-700 leading-tight rounded-xl w-4/6"
                     type="text"
                     id='searchingHerb'
                     placeholder="Find product..."
-                    onChange={getInput}
+                    onChange={(e) => setinputValue(e.target.value)}
                     value={inputValue}
                 />
                 <button type="submit" className='ml-4 bg-[#B81426] text-gray-50 rounded-xl px-3 py-1 transition duration-100 hover:opacity-90 active:animate-animeBtn'>Search</button>

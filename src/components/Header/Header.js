@@ -1,4 +1,5 @@
 import CartBtn from './CartBtn'
+import LogBtn from './LogBtn'
 import SearchBtn from './SearchBtn'
 
 const Header = (props) => {
@@ -12,10 +13,13 @@ const Header = (props) => {
                     <h1 className='text-2xl'>HerbsReact</h1>
                 </button>
                 <div className='flex'>
+                    <LogBtn
+                        onClick={props.onShowUserSignInUp} />
                     <SearchBtn
                         onClick={props.onShowSearchInput}
                     />
-                    <CartBtn onClick={props.onShowCart} />
+                    <CartBtn
+                        onClick={props.onShowCart} />
                 </div>
             </section>
         </header>

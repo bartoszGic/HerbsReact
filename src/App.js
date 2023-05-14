@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
 import HerbsList from './components/Goods/HerbsList'
 import SearchInput from "./components/Search/SearchInput";
+import SignUp from "./components/User/SignUp";
+import SignIn from "./components/User/SignIn";
+
 import { db } from "./firebase-config";
 import { collection, getDocs } from 'firebase/firestore'
 import { useDispatch } from "react-redux";
@@ -12,24 +15,27 @@ function App() {
   // console.log('App');
   const [cart, setCart] = useState(false)
   const [search, setSearch] = useState(false)
+  const [user, setUser] = useState(false)
 
   const [loadingState, setLoadingState] = useState(true)
   const [httpsError, setHttpsError] = useState(false)
-
   const dispatch = useDispatch()
 
+
+  const toggleUserToolsHandler = () => {
+    setUser(prevState => !prevState)
+  }
   const toggleCartHandler = () => {
     setCart(prevState => !prevState)
   }
   const toggleSearchInputHandler = () => {
     setSearch(prevState => !prevState)
   }
-
   useEffect(() => {
     // console.log('App-useEffect');
-    const loadedHerbs = []
     const fetchHerbs = async () => {
       try {
+        const loadedHerbs = []
         const herbsCollectionRef = collection(db, 'herbs')
         const herbsDocs = await getDocs(herbsCollectionRef)
         herbsDocs.forEach((doc) => {
@@ -45,14 +51,15 @@ function App() {
         })
         dispatch(storeHerbsActions.loadDownloadedHerbs(loadedHerbs))
       }
-      catch {
+      catch (error) {
         setHttpsError(true)
-        console.error('Server error !!!')
+        console.error(error)
       }
     }
     fetchHerbs()
     setLoadingState(false)
   }, [dispatch])
+
 
 
   if (loadingState) {
@@ -71,6 +78,12 @@ function App() {
   }
   return (
     <>
+      {user &&
+        <div>
+          <SignUp onHideUserTools={toggleUserToolsHandler} />
+          <SignIn onHideUserTools={toggleUserToolsHandler} />
+        </div>
+      }
       {cart &&
         <Cart
           onHideCart={toggleCartHandler} />}
@@ -79,6 +92,7 @@ function App() {
           onHideSearchInput={toggleSearchInputHandler}
         />}
       <Header
+        onShowUserSignInUp={toggleUserToolsHandler}
         onShowCart={toggleCartHandler}
         onShowSearchInput={toggleSearchInputHandler}
       />
