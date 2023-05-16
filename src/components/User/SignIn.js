@@ -1,22 +1,31 @@
 import { useState } from "react"
 import Modalzzzz from "../UI/Modalzzzz"
-import { signInWithEmailAndPassword } from "firebase/auth"
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../firebase-config"
 const SignIn = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [user, setUser] = useState(null)
 
     const signInHandler = async (e) => {
         e.preventDefault()
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password)
-            const user = userCredential.user
-            console.log(user);
+            await signInWithEmailAndPassword(auth, email, password)
+            onAuthStateChanged(auth, (user) => {
+                setUser(user.email.substring(0, user.email.indexOf('@')))
+            })
         }
         catch (error) {
             console.error(error)
+            setUser(null)
         }
-
+    }
+    if (user) {
+        return (
+            <Modalzzzz onClick={props.onHideUserTools}>
+                <div className="text-center font-medium text-xl mb-4">Witaj <span className="text-teal-500">{user}</span></div>
+            </Modalzzzz>
+        )
     }
 
     return (
