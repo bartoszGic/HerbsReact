@@ -22,7 +22,7 @@ const HerbsList = () => {
         <section className='flex pt-[48px] justify-center w-full max-w-4xl'>
             {errorMsg
                 ?
-                <div className="text-[#B81426] pt-16 text-center text-2xl">Niema takiego towaru</div>
+                <div className="text-[#B81426] pt-16 text-center text-2xl">No goods were found!</div>
                 :
                 <ul className='grid grid-cols-1 gap-x-16 gap-y-6 mt-1 md:grid-cols-2 divide-y divide-gray-200'>
                     {herbsToBuy.map(herb =>
