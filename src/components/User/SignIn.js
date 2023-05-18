@@ -7,6 +7,8 @@ const SignIn = (props) => {
     const [password, setPassword] = useState('')
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [emailError, setEmailError] = useState(null)
+    const [passwordError, setPasswordError] = useState(null)
 
     const signInHandler = async (e) => {
         e.preventDefault()
@@ -17,13 +19,22 @@ const SignIn = (props) => {
                 setUser(user.email.substring(0, user.email.indexOf('@')))
             })
             setLoading(false)
+            props.onHideUserTools()
         }
         catch (error) {
             console.error(error)
             setUser(null)
             setLoading(false)
+            if (error.code === 'auth/user-not-found') {
+                setEmailError('User not found')
+                setPasswordError('')
+            } else if (error.code === 'auth/wrong-password') {
+                setPasswordError('Wrong password')
+            }
         }
     }
+
+
     if (loading) {
         return (
             <Modalzzzz onClick={props.onHideUserTools}>
@@ -60,9 +71,10 @@ const SignIn = (props) => {
                             value={email}
                         />
                     </div>
+                    <div className="text-center text-[#B81426]">{emailError}</div>
                     <div className="flex flex-col w-full">
                         <label htmlFor="passwordIn" className="mb-1">Password</label>
-                        <input className="border py-2 px-3 mb-8 text-gray-700 leading-tight rounded-xl"
+                        <input className="border py-2 px-3 mb-2 text-gray-700 leading-tight rounded-xl"
                             type="password"
                             id='passwordIn'
                             placeholder="Password"
@@ -70,7 +82,8 @@ const SignIn = (props) => {
                             value={password}
                         />
                     </div>
-                    <button className='flex w-full bg-teal-500 text-gray-50 justify-center rounded-xl  px-3 py-1 mb-4 transition duration-100 hover:opacity-90 active:animate-animeBtn'>Sign In</button>
+                    <div className="text-center text-[#B81426]">{passwordError}</div>
+                    <button className='flex w-full bg-teal-500 text-gray-50 justify-center rounded-xl  px-3 py-1 mt-6 mb-4 transition duration-100 hover:opacity-90 active:animate-animeBtn'>Sign In</button>
                 </form>
                 <div className="text-right text-gray-700">Don' t have acount ? <span className="text-[#B81426] font-bold">Sign Up</span></div>
             </div>

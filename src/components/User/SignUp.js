@@ -10,7 +10,8 @@ const SignUp = (props) => {
     const [password, setPassword] = useState('')
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(false)
-
+    const [emailError, setEmailError] = useState(null)
+    const [passwordError, setPasswordError] = useState(null)
 
     const signUpHandler = async (e) => {
         e.preventDefault()
@@ -21,28 +22,26 @@ const SignUp = (props) => {
                 setUser(user.email.substring(0, user.email.indexOf('@')))
             })
             setLoading(false)
-
+            props.onHideUserTools()
         }
         catch (error) {
             console.error(error)
             setUser(null)
             setLoading(false)
-            if (isValidEmail(email) === false) {
-                emailError = 'Invalid e-mail address'
+            if (error.code === 'auth/invalid-email') {
+                setEmailError('Email is invalid')
+                setPasswordError('')
+            } else if (error.code === 'auth/weak-password') {
+                setPasswordError('Type at least 6 characters')
+            } else if (error.code === 'email-already-in-use') {
+                setEmailError('Email already in use')
+                setPasswordError('')
             }
         }
 
     }
-    const isValidEmail = (mail) => {
-        return /\S+@\S+\.\S+/.test(mail)
-    }
-    // const isValidPassword = (pass) => {
-    //     if (pass.length >= 6) {
-    //         return true
-    //     } else {
-    //         return false
-    //     }
-    // }
+
+
     if (loading) {
         return (
             <Modal onClick={props.onHideUserTools}>
@@ -63,7 +62,6 @@ const SignUp = (props) => {
             </Modal>
         )
     }
-
     return (
         <Modal onClick={props.onHideUserTools}>
             <div className="flex flex-col">
@@ -89,7 +87,7 @@ const SignUp = (props) => {
                             onChange={(e) => setPassword(e.target.value)}
                             value={password}
                         />
-                        <div className="text-center text-[#B81426]">Type at least 6 characters</div>
+                        <div className="text-center text-[#B81426]">{passwordError}</div>
                     </div>
                     <button className='flex w-full bg-[#B81426] text-gray-50 justify-center rounded-xl  px-3 py-1 mt-6 mb-4 transition duration-100 hover:opacity-90 active:animate-animeBtn'>Sign Up</button>
                 </form>
