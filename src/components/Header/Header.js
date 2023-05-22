@@ -16,13 +16,12 @@ const Header = (props) => {
                     <LogBtn
                         onClick={props.onShowUserSignInUp} />
                     <SearchBtn
-                        onClick={props.onShowSearchInput}
-                    />
+                        onClick={props.onShowSearchInput} />
                     <CartBtn
                         onClick={props.onShowCart} />
                 </div>
             </section>
-        </header>
+        </header >
     )
 }
 

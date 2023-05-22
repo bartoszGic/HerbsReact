@@ -15,15 +15,22 @@ function App() {
   console.log('App');
   const [cart, setCart] = useState(false)
   const [search, setSearch] = useState(false)
-  const [user, setUser] = useState(false)
+  const [userSignUp, setUserSignUp] = useState(false)
+  const [userSignIn, setUserSignIn] = useState(true)
+  // const [userAcount, setUserAcount] = useState(false)
 
   const [loadingState, setLoadingState] = useState(true)
   const [httpsError, setHttpsError] = useState(false)
   const dispatch = useDispatch()
 
 
-  const toggleUserToolsHandler = () => {
-    setUser(prevState => !prevState)
+  const signUpHandler = () => {
+    setUserSignUp(prevState => !prevState)
+    setUserSignIn(prevState => !prevState)
+  }
+  const signInHandler = () => {
+    setUserSignIn(prevState => !prevState)
+    setUserSignUp(prevState => !prevState)
   }
   const toggleCartHandler = () => {
     setCart(prevState => !prevState)
@@ -31,6 +38,7 @@ function App() {
   const toggleSearchInputHandler = () => {
     setSearch(prevState => !prevState)
   }
+
   useEffect(() => {
     // console.log('App-useEffect');
     const fetchHerbs = async () => {
@@ -82,14 +90,11 @@ function App() {
       </div>
     )
   }
+
   return (
     <>
-      {user &&
-        <div>
-          <SignUp onHideUserTools={toggleUserToolsHandler} />
-          <SignIn onHideUserTools={toggleUserToolsHandler} />
-        </div>
-      }
+      {userSignUp && <SignUp onHideUserTools={signUpHandler} />}
+      {userSignIn && <SignIn onHideUserTools={signInHandler} />}
       {cart &&
         <Cart
           onHideCart={toggleCartHandler} />}
@@ -98,13 +103,14 @@ function App() {
           onHideSearchInput={toggleSearchInputHandler}
         />}
       <Header
-        onShowUserSignInUp={toggleUserToolsHandler}
+        onShowUserSignInUp={signUpHandler}
         onShowCart={toggleCartHandler}
         onShowSearchInput={toggleSearchInputHandler}
       />
       <main className="flex justify-center w-full">
         <HerbsList />
       </main>
+
     </>
   );
 }

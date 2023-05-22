@@ -8,6 +8,7 @@ const SignUp = (props) => {
     console.log('SignUp');
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [password1, setPassword1] = useState('')
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(false)
     const [emailError, setEmailError] = useState(null)
@@ -16,20 +17,23 @@ const SignUp = (props) => {
     const signUpHandler = async (e) => {
         e.preventDefault()
         try {
+            if (password !== password1) {
+                return setPasswordError('Passwords do not match')
+            }
             setLoading(true)
             await createUserWithEmailAndPassword(auth, email, password)
             onAuthStateChanged(auth, (user) => {
                 setUser(user.email.substring(0, user.email.indexOf('@')))
             })
             setLoading(false)
-            props.onHideUserTools()
+            // props.onHideUserTools()
         }
         catch (error) {
             console.error(error)
             setUser(null)
             setLoading(false)
             if (error.code === 'auth/invalid-email') {
-                setEmailError('Email is invalid')
+                setEmailError('Invalid email')
                 setPasswordError('')
             } else if (error.code === 'auth/weak-password') {
                 setPasswordError('Type at least 6 characters')
@@ -58,7 +62,9 @@ const SignUp = (props) => {
     if (user) {
         return (
             <Modal onClick={props.onHideUserTools}>
-                <div className="text-center font-medium text-xl mb-4">Your account has been created! Now you can <span className="text-teal-500">Sign In</span></div>
+                <div className="text-center font-medium text-xl">Your account has been created! Now you can
+                    <button className="text-teal-500 mt-4 transition duration-100 hover:opacity-90 active:animate-animeBtn">Sign In</button>
+                </div>
             </Modal>
         )
     }
@@ -89,9 +95,22 @@ const SignUp = (props) => {
                         />
                         <div className="text-center text-[#B81426]">{passwordError}</div>
                     </div>
+                    <div className="flex flex-col w-full">
+                        <label htmlFor="passwordUpConfirm" className="mb-1">Confirm password</label>
+                        <input className="border py-2 px-3 mb-2 text-gray-700 leading-tight rounded-xl"
+                            type="password"
+                            id='passwordUpConfirm'
+                            placeholder="Confirm password"
+                            onChange={(e) => setPassword1(e.target.value)}
+                            value={password1}
+                        />
+                        <div className="text-center text-[#B81426]">{passwordError}</div>
+                    </div>
                     <button className='flex w-full bg-[#B81426] text-gray-50 justify-center rounded-xl  px-3 py-1 mt-6 mb-4 transition duration-100 hover:opacity-90 active:animate-animeBtn'>Sign Up</button>
                 </form>
-                <div className="text-right text-gray-700">Already have acount ? <span className="text-teal-500 font-bold">Sign In</span></div>
+                <div className="text-right text-gray-700">Already have acount ?
+                    <button className="text-teal-500 font-bold ml-2 p-1 transition duration-100 hover:opacity-90 active:animate-animeBtn">Sign In</button>
+                </div>
             </div>
         </Modal>
     )
