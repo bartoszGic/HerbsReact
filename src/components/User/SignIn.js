@@ -93,7 +93,7 @@ const SignIn = (props) => {
                     <button className="text-[#B81426] font-bold ml-2 p-1 transition duration-100 hover:opacity-90 active:animate-animeBtn">Sign Up</button>
                 </div>
             </div>
-            <UserPanel />
+            <UserPanel onClick={props.onHideUserTools} />
         </Modal>
     )
 }

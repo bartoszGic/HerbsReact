@@ -44,7 +44,7 @@ const SignUp = (props) => {
         }
 
     }
-
+    console.log(auth.currentUser);
 
     if (loading) {
         return (
@@ -108,7 +108,7 @@ const SignUp = (props) => {
                     </div>
                     <button className='flex w-full bg-[#B81426] text-gray-50 justify-center rounded-xl  px-3 py-1 mt-6 mb-4 transition duration-100 hover:opacity-90 active:animate-animeBtn'>Sign Up</button>
                 </form>
-                <div className="text-right text-gray-700">Already have acount ?
+                <div className="text-right text-gray-700">Already have account ?
                     <button className="text-teal-500 font-bold ml-2 p-1 transition duration-100 hover:opacity-90 active:animate-animeBtn">Sign In</button>
                 </div>
             </div>

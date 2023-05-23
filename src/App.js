@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { storeHerbsActions } from "./components/store/storedHerbs-slice";
 
 function App() {
-  console.log('App');
+  // console.log('App');
   const [cart, setCart] = useState(false)
   const [search, setSearch] = useState(false)
   const [userSignUp, setUserSignUp] = useState(false)
