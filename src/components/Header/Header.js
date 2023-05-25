@@ -1,8 +1,12 @@
 import CartBtn from './CartBtn'
 import LogBtn from './LogBtn'
 import SearchBtn from './SearchBtn'
+import { useSelector } from 'react-redux'
 
 const Header = (props) => {
+    console.log('Header');
+    const modalContent = useSelector(state => state.modalContent.panel)
+    console.log(modalContent);
     const pageRefresher = () => {
         window.location.reload()
     }
@@ -14,7 +18,7 @@ const Header = (props) => {
                 </button>
                 <div className='flex'>
                     <LogBtn
-                        onClick={props.onShowUserSignInUp} />
+                        onClick={props.onShowUserTools} />
                     <SearchBtn
                         onClick={props.onShowSearchInput} />
                     <CartBtn

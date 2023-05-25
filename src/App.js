@@ -5,38 +5,40 @@ import HerbsList from './components/Goods/HerbsList'
 import SearchInput from "./components/Search/SearchInput";
 import SignUp from "./components/User/SignUp";
 import SignIn from "./components/User/SignIn";
+import UserPanel from "./components/User/UserPanel";
 
 import { db } from "./firebase-config";
 import { collection, getDocs } from 'firebase/firestore'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { storeHerbsActions } from "./components/store/storedHerbs-slice";
+// import { modalsStatesActions } from "./components/store/modalsStates-slice";
 
 function App() {
-  // console.log('App');
+  console.log('App');
   const [cart, setCart] = useState(false)
   const [search, setSearch] = useState(false)
-  const [userSignUp, setUserSignUp] = useState(false)
-  const [userSignIn, setUserSignIn] = useState(true)
+  const [userPanel, setUserPanel] = useState(false)
+  // const [userSignIn, setUserSignIn] = useState(true)
   // const [userAcount, setUserAcount] = useState(false)
 
   const [loadingState, setLoadingState] = useState(true)
   const [httpsError, setHttpsError] = useState(false)
+  const modalContent = useSelector(state => state.modalContent.panel)
+
+
   const dispatch = useDispatch()
 
 
-  const signUpHandler = () => {
-    setUserSignUp(prevState => !prevState)
-    setUserSignIn(prevState => !prevState)
-  }
-  const signInHandler = () => {
-    setUserSignIn(prevState => !prevState)
-    setUserSignUp(prevState => !prevState)
+  const toggleUserToolsHandler = () => {
+    setUserPanel(prevState => !prevState)
   }
   const toggleCartHandler = () => {
     setCart(prevState => !prevState)
+    search && setSearch(false)
   }
   const toggleSearchInputHandler = () => {
     setSearch(prevState => !prevState)
+    cart && setCart(false)
   }
 
   useEffect(() => {
@@ -93,8 +95,12 @@ function App() {
 
   return (
     <>
-      {userSignUp && <SignUp onHideUserTools={signUpHandler} />}
-      {userSignIn && <SignIn onHideUserTools={signInHandler} />}
+      {(userPanel && modalContent === 'register') &&
+        <SignUp onToggleUserToolsHandler={toggleUserToolsHandler} />}
+      {(userPanel && modalContent === 'login') &&
+        <SignIn onToggleUserToolsHandler={toggleUserToolsHandler} />}
+      {(userPanel && modalContent === 'user') &&
+        <UserPanel onToggleUserToolsHandler={toggleUserToolsHandler} />}
       {cart &&
         <Cart
           onHideCart={toggleCartHandler} />}
@@ -103,7 +109,7 @@ function App() {
           onHideSearchInput={toggleSearchInputHandler}
         />}
       <Header
-        onShowUserSignInUp={signUpHandler}
+        onShowUserTools={toggleUserToolsHandler}
         onShowCart={toggleCartHandler}
         onShowSearchInput={toggleSearchInputHandler}
       />

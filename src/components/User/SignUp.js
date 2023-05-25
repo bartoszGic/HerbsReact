@@ -2,10 +2,12 @@ import { useState } from "react"
 import Modal from "../UI/Modal"
 import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth"
 import { auth } from "../../firebase-config"
+import { useDispatch } from "react-redux"
+import { modalsStatesActions } from "../store/modalsStates-slice"
 
 
 const SignUp = (props) => {
-    console.log('SignUp');
+    // console.log('SignUp');
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [password1, setPassword1] = useState('')
@@ -13,6 +15,7 @@ const SignUp = (props) => {
     const [loading, setLoading] = useState(false)
     const [emailError, setEmailError] = useState(null)
     const [passwordError, setPasswordError] = useState(null)
+    const dispatch = useDispatch()
 
     const signUpHandler = async (e) => {
         e.preventDefault()
@@ -26,7 +29,8 @@ const SignUp = (props) => {
                 setUser(user.email.substring(0, user.email.indexOf('@')))
             })
             setLoading(false)
-            // props.onHideUserTools()
+            // dispatch(modalsStatesActions.login())
+            // props.onToggleUserToolsHandler()
         }
         catch (error) {
             console.error(error)
@@ -44,11 +48,13 @@ const SignUp = (props) => {
         }
 
     }
-    console.log(auth.currentUser);
+    const showSignInPanelHandler = () => {
+        dispatch(modalsStatesActions.login())
+    }
 
     if (loading) {
         return (
-            <Modal onClick={props.onHideUserTools}>
+            <Modal onClick={props.onToggleUserToolsHandler}>
                 <div role="status" className="flex justify-center">
                     <svg aria-hidden="true" className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-700 fill-teal-500" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
@@ -61,15 +67,15 @@ const SignUp = (props) => {
     }
     if (user) {
         return (
-            <Modal onClick={props.onHideUserTools}>
+            <Modal onClick={props.onToggleUserToolsHandler}>
                 <div className="text-center font-medium text-xl">Your account has been created! Now you can
-                    <button className="text-teal-500 mt-4 transition duration-100 hover:opacity-90 active:animate-animeBtn">Sign In</button>
+                    <button onClick={showSignInPanelHandler} className="text-teal-500 mt-4 transition duration-100 hover:opacity-90 active:animate-animeBtn">Sign In</button>
                 </div>
             </Modal>
         )
     }
     return (
-        <Modal onClick={props.onHideUserTools}>
+        <Modal onClick={props.onToggleUserToolsHandler}>
             <div className="flex flex-col">
                 <div className="text-center font-medium text-xl mb-4">Sign Up</div>
                 <form className="flex flex-col items-center" onSubmit={signUpHandler}>
@@ -109,7 +115,7 @@ const SignUp = (props) => {
                     <button className='flex w-full bg-[#B81426] text-gray-50 justify-center rounded-xl  px-3 py-1 mt-6 mb-4 transition duration-100 hover:opacity-90 active:animate-animeBtn'>Sign Up</button>
                 </form>
                 <div className="text-right text-gray-700">Already have account ?
-                    <button className="text-teal-500 font-bold ml-2 p-1 transition duration-100 hover:opacity-90 active:animate-animeBtn">Sign In</button>
+                    <button onClick={showSignInPanelHandler} className="text-teal-500 font-bold ml-2 p-1 transition duration-100 hover:opacity-90 active:animate-animeBtn">Sign In</button>
                 </div>
             </div>
         </Modal>
