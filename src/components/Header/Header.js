@@ -1,12 +1,17 @@
 import CartBtn from './CartBtn'
 import LogBtn from './LogBtn'
 import SearchBtn from './SearchBtn'
-import { useSelector } from 'react-redux'
+import { auth } from '../../firebase-config'
+import { onAuthStateChanged } from 'firebase/auth'
+import { modalsStatesActions } from '../store/modalsStates-slice'
+import { useDispatch } from 'react-redux'
 
 const Header = (props) => {
-    console.log('Header');
-    const modalContent = useSelector(state => state.modalContent.panel)
-    console.log(modalContent);
+    // console.log('Header');
+    const dispatch = useDispatch()
+    onAuthStateChanged(auth, (user) => {
+        user && dispatch(modalsStatesActions.trueLogState())
+    });
     const pageRefresher = () => {
         window.location.reload()
     }

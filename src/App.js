@@ -14,7 +14,7 @@ import { storeHerbsActions } from "./components/store/storedHerbs-slice";
 // import { modalsStatesActions } from "./components/store/modalsStates-slice";
 
 function App() {
-  console.log('App');
+  // console.log('App');
   const [cart, setCart] = useState(false)
   const [search, setSearch] = useState(false)
   const [userPanel, setUserPanel] = useState(false)
@@ -24,6 +24,7 @@ function App() {
   const [loadingState, setLoadingState] = useState(true)
   const [httpsError, setHttpsError] = useState(false)
   const modalContent = useSelector(state => state.modalContent.panel)
+  const userState = useSelector(state => state.modalContent.logState)
 
 
   const dispatch = useDispatch()
@@ -92,14 +93,16 @@ function App() {
       </div>
     )
   }
-
+  console.log(userPanel);
+  console.log(userState);
+  console.log(modalContent);
   return (
     <>
-      {(userPanel && modalContent === 'register') &&
+      {(userPanel && !userState && modalContent === 'register') &&
         <SignUp onToggleUserToolsHandler={toggleUserToolsHandler} />}
-      {(userPanel && modalContent === 'login') &&
+      {(userPanel && !userState && modalContent === 'login') &&
         <SignIn onToggleUserToolsHandler={toggleUserToolsHandler} />}
-      {(userPanel && modalContent === 'user') &&
+      {(userPanel && userState) &&
         <UserPanel onToggleUserToolsHandler={toggleUserToolsHandler} />}
       {cart &&
         <Cart

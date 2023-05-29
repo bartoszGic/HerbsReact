@@ -1,13 +1,15 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase-config";
-import { useState } from "react";
-import DeleteUser from "./DeleteUser";
 import Modal from "../UI/Modal";
-
+import { useDispatch } from "react-redux";
+import { modalsStatesActions } from "../store/modalsStates-slice";
+import DeleteUser from "./DeleteUser";
+import { useState } from "react";
 
 const UserPanel = (props) => {
-    console.log('UserPanel');
-    const [showDeleteUser, setShowDeleteUser] = useState(false)
+    // console.log('UserPanel');
+    const [deleteUserPanel, setDeleteUserPanel] = useState(false)
+    const dispatch = useDispatch()
     const user = auth.currentUser
     let nick
     let email
@@ -22,29 +24,25 @@ const UserPanel = (props) => {
     const logOutHandler = async () => {
         try {
             await signOut(auth)
-            props.onClick()
+            dispatch(modalsStatesActions.falseLogState())
         }
         catch (error) {
             console.log(error);
         }
     }
     const deleteAccountPanel = () => {
-        setShowDeleteUser(prevState => !prevState)
+        setDeleteUserPanel(true)
     }
-    if (showDeleteUser) {
+    if (deleteUserPanel) {
         return (
-            <DeleteUser onClick={props.onClick} />
+            <DeleteUser onClick={props.onToggleUserToolsHandler} />
         )
     }
     return (
         <Modal onClick={props.onToggleUserToolsHandler}>
             <div className="flex flex-col">
-                <div className="text-center font-medium text-xl mb-4">User Panel</div>
+                <div className="text-center font-medium text-xl mb-4">Hello {`${nick}`}</div>
                 <div>
-                    <div className="flex">
-                        <div>Nick:</div>
-                        <div>{nick}</div>
-                    </div>
                     <div className="flex">
                         <div>E-mail:</div>
                         <div>{email}</div>

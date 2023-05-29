@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const modalsStatesSlice = createSlice({
     name: 'modals',
     initialState: {
-        panel: 'register'
+        panel: 'login',
+        logState: false
     },
     reducers: {
         register(state) {
@@ -17,6 +18,12 @@ const modalsStatesSlice = createSlice({
         },
         deleteUser(state) {
             state.panel = "deleteUser"
+        },
+        trueLogState(state) {
+            state.logState = true
+        },
+        falseLogState(state) {
+            state.logState = false
         }
     }
 })

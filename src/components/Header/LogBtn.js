@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux"
 const LogBtn = (props) => {
+    // console.log('LogBtn');
     let userColor
-    const userState = useSelector(state => state.modalContent.panel)
-    if (userState === 'user') {
+    const userState = useSelector(state => state.modalContent.logState)
+    if (userState === true) {
         userColor = 'text-[#B81426]'
     } else {
         userColor = 'text-white'

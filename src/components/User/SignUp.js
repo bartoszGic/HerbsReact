@@ -13,12 +13,14 @@ const SignUp = (props) => {
     const [password1, setPassword1] = useState('')
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(false)
-    const [emailError, setEmailError] = useState(null)
-    const [passwordError, setPasswordError] = useState(null)
+    const [emailError, setEmailError] = useState('')
+    const [passwordError, setPasswordError] = useState('')
     const dispatch = useDispatch()
 
     const signUpHandler = async (e) => {
         e.preventDefault()
+        console.log(emailError);
+        console.log(passwordError);
         try {
             if (password !== password1) {
                 return setPasswordError('Passwords do not match')
@@ -29,11 +31,11 @@ const SignUp = (props) => {
                 setUser(user.email.substring(0, user.email.indexOf('@')))
             })
             setLoading(false)
-            // dispatch(modalsStatesActions.login())
+            dispatch(modalsStatesActions.trueLogState())
             // props.onToggleUserToolsHandler()
         }
         catch (error) {
-            console.error(error)
+            console.error(error.code)
             setUser(null)
             setLoading(false)
             if (error.code === 'auth/invalid-email') {
@@ -41,8 +43,9 @@ const SignUp = (props) => {
                 setPasswordError('')
             } else if (error.code === 'auth/weak-password') {
                 setPasswordError('Type at least 6 characters')
-            } else if (error.code === 'email-already-in-use') {
+            } else if (error.code === 'auth/email-already-in-use') {
                 setEmailError('Email already in use')
+                console.log(emailError);
                 setPasswordError('')
             }
         }
