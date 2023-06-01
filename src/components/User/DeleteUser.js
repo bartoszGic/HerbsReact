@@ -12,14 +12,13 @@ const DeleteUser = (props) => {
     const [passwordError, setPasswordError] = useState(null)
     const dispatch = useDispatch()
 
-    const user = auth.currentUser
-    const userName = user.email.substring(0, user.email.indexOf('@'))
+    const userName = auth.currentUser.email.substring(0, auth.currentUser.email.indexOf('@'))
 
     const deleteUserHandler = async (e) => {
         e.preventDefault()
         try {
             await signInWithEmailAndPassword(auth, email, password)
-            await deleteUser(user)
+            await deleteUser(auth.currentUser)
             dispatch(modalsStatesActions.falseLogState())
             dispatch(modalsStatesActions.login())
             props.onClick()

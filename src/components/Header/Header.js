@@ -23,11 +23,11 @@ const Header = (props) => {
                 </button>
                 <div className='flex'>
                     <LogBtn
-                        onClick={props.onShowUserTools} />
+                        onClick={props.onToggleUserToolsHandler} />
                     <SearchBtn
-                        onClick={props.onShowSearchInput} />
+                        onClick={props.onToggleSearchInputHandler} />
                     <CartBtn
-                        onClick={props.onShowCart} />
+                        onClick={props.onToggleCartHandler} />
                 </div>
             </section>
         </header >

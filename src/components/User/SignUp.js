@@ -1,7 +1,8 @@
 import { useState } from "react"
 import Modal from "../UI/Modal"
-import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth"
-import { auth } from "../../firebase-config"
+import { createUserWithEmailAndPassword } from "firebase/auth"
+import { setDoc, doc } from "firebase/firestore"
+import { auth, db } from "../../firebase-config"
 import { useDispatch } from "react-redux"
 import { modalsStatesActions } from "../store/modalsStates-slice"
 
@@ -11,7 +12,6 @@ const SignUp = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [password1, setPassword1] = useState('')
-    const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(false)
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
@@ -19,24 +19,20 @@ const SignUp = (props) => {
 
     const signUpHandler = async (e) => {
         e.preventDefault()
-        console.log(emailError);
-        console.log(passwordError);
         try {
             if (password !== password1) {
                 return setPasswordError('Passwords do not match')
             }
             setLoading(true)
             await createUserWithEmailAndPassword(auth, email, password)
-            onAuthStateChanged(auth, (user) => {
-                setUser(user.email.substring(0, user.email.indexOf('@')))
+            await setDoc(doc(db, 'users', auth.currentUser.uid), {
+                cart: {}
             })
-            setLoading(false)
             dispatch(modalsStatesActions.trueLogState())
-            // props.onToggleUserToolsHandler()
+            setLoading(false)
         }
         catch (error) {
             console.error(error.code)
-            setUser(null)
             setLoading(false)
             if (error.code === 'auth/invalid-email') {
                 setEmailError('Invalid email')
@@ -68,15 +64,7 @@ const SignUp = (props) => {
             </Modal>
         )
     }
-    if (user) {
-        return (
-            <Modal onClick={props.onToggleUserToolsHandler}>
-                <div className="text-center font-medium text-xl">Your account has been created! Now you can
-                    <button onClick={showSignInPanelHandler} className="text-teal-500 mt-4 transition duration-100 hover:opacity-90 active:animate-animeBtn">Sign In</button>
-                </div>
-            </Modal>
-        )
-    }
+
     return (
         <Modal onClick={props.onToggleUserToolsHandler}>
             <div className="flex flex-col">

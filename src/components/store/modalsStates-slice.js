@@ -16,9 +16,6 @@ const modalsStatesSlice = createSlice({
         user(state) {
             state.panel = "user"
         },
-        deleteUser(state) {
-            state.panel = "deleteUser"
-        },
         trueLogState(state) {
             state.logState = true
         },

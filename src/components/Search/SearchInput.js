@@ -15,12 +15,12 @@ const SearchInput = (props) => {
         e.preventDefault()
         dispatch(storeHerbsActions.searchInDownloadedHerbs(inputValue));
         dispatch(storeSearchInputActions.loadInputValue(inputValue))
-        props.onHideSearchInput()
+        props.onToggleSearchInputHandler()
     }
 
 
     return (
-        <Modal onClick={props.onHideSearchInput}>
+        <Modal onClick={props.onToggleSearchInputHandler}>
             <form className="flex justify-center" onSubmit={searchBtnHandler}>
                 <input className="border py-2 px-3 text-gray-700 leading-tight rounded-xl w-4/6"
                     type="text"
