@@ -4,7 +4,7 @@ import CartHerb from './CartHerb'
 import { herbsActions } from '../store/cartHerbs-slice'
 
 const Cart = (props) => {
-    console.log('Cart');
+    // console.log('Cart');
     const dispatch = useDispatch()
     const total = useSelector(state => state.cartHerbs.sumTotal.toFixed(2))
     const cartHerbs = useSelector(state => state.cartHerbs.herbs)
@@ -14,7 +14,6 @@ const Cart = (props) => {
     const herbAddHandler = (herb) => {
         dispatch(herbsActions.addToCart(herb))
     }
-
     const herbRemoveHandler = (id) => {
         dispatch(herbsActions.removeFromCart(id))
     }
@@ -24,6 +23,7 @@ const Cart = (props) => {
             props.onOrderIfLogged()
         }
     }
+
 
     const addedToCartHerbs = (
         <ul className='overflow-auto max-h-96 divide-y'>

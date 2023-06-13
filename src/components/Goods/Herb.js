@@ -19,7 +19,6 @@ const Herb = (props) => {
 
     }
 
-
     const addToCartHandl = (weight) => {
         dispatch(herbsActions.addToCart({
             id: props.id + weight,
@@ -30,7 +29,6 @@ const Herb = (props) => {
             img: props.img
         }));
     }
-
 
     return (
         <li className='grid grid-cols-2 p-3'>

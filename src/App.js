@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 
 
 function App() {
-  console.log('App');
+  // console.log('App');
   const [cart, setCart] = useState(false)
   const [search, setSearch] = useState(false)
   const [userPanel, setUserPanel] = useState(false)

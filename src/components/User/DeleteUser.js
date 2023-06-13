@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { signInWithEmailAndPassword, deleteUser } from "firebase/auth"
-import { auth } from "../../firebase-config"
+import { doc, deleteDoc } from "firebase/firestore"
+import { auth, db } from "../../firebase-config"
 import { useDispatch } from "react-redux"
 import { modalsStatesActions } from "../store/modalsStates-slice"
 import Modal from "../UI/Modal"
@@ -18,6 +19,7 @@ const DeleteUser = (props) => {
         e.preventDefault()
         try {
             await signInWithEmailAndPassword(auth, email, password)
+            await deleteDoc(doc(db, 'users', auth.currentUser.uid))
             await deleteUser(auth.currentUser)
             dispatch(modalsStatesActions.falseLogState())
             dispatch(modalsStatesActions.login())
