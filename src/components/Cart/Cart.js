@@ -23,7 +23,7 @@ const Cart = (props) => {
             props.onOrderIfLogged()
         }
     }
-
+    // console.log(cartHerbs);
 
     const addedToCartHerbs = (
         <ul className='overflow-auto max-h-96 divide-y'>

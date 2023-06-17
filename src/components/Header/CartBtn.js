@@ -1,6 +1,8 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux"
-import { doc, updateDoc } from "firebase/firestore";
+import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
+import { doc } from "firebase/firestore";
+import { updateDoc } from "firebase/firestore";
 import { db, auth } from "../../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 import { herbsActions } from "../store/cartHerbs-slice";
@@ -10,28 +12,28 @@ const CartBtn = (props) => {
     // console.log('CartBtn');
     const dispatch = useDispatch()
     const cartHerbs = useSelector(state => state.cartHerbs.herbs)
+    // const userState = useSelector(state => state.modalContent.logState)
     const sumCartHerbs = cartHerbs.reduce((curNum, herb) => {
         return curNum + herb.weight / herb.weight
     }, 0)
 
+    // onAuthStateChanged(auth, user => {
+    //     console.log(user);
+    //     console.log(auth.currentUser);
+    // })
+
     useEffect(() => {
-        console.log('CartBtn-effect');
+        // console.log('CartBtn-effect-upload');
         const uploadCartHerbs = () => {
             onAuthStateChanged(auth, user => {
-                const userUID = user.uid
                 const upload = async () => {
-                    const docRef = doc(db, 'users', userUID)
                     try {
+                        const userUID = user.uid
+                        const docRef = doc(db, 'users', userUID)
                         await updateDoc(docRef, {
                             cartHerbs: cartHerbs
                         })
-                        // let downloadedCartHerbs = []
-                        // const userDoc = await getDoc(docRef)
-                        // const userCart = userDoc.data().cartHerbs
-                        // downloadedCartHerbs = [...userCart]
-                        // console.log(userCart);
-                        // console.log(downloadedCartHerbs);
-                        // dispatch(herbsActions.showDownloadedUserCart(downloadedCartHerbs))
+                        console.log('upload');
                     } catch (error) {
                         console.log(error);
                     }
@@ -42,22 +44,31 @@ const CartBtn = (props) => {
         auth.currentUser !== null && uploadCartHerbs()
     }, [dispatch, cartHerbs])
 
-    useEffect(() => {
-        onAuthStateChanged(auth, user => {
-            const userUID = user.uid
-            const download = async () => {
-                const docRef = doc(db, 'users', userUID)
-                let downloadedCartHerbs = []
-                const userDoc = await getDoc(docRef)
-                const userCart = userDoc.data().cartHerbs
-                downloadedCartHerbs = [...userCart]
-                console.log(userCart);
-                console.log(downloadedCartHerbs);
-                dispatch(herbsActions.showDownloadedUserCart(downloadedCartHerbs))
-            }
-            download()
-        })
-    }, [dispatch])
+    // useEffect(() => {
+    //     console.log('CartBtn-effect-download');
+    //     const downloadCartHerbs = () => {
+    //         const download = async () => {
+    //             try {
+    //                 const userUID = auth.currentUser.uid
+    //                 const docRef = doc(db, 'users', userUID)
+    //                 let downloadedCartHerbs = []
+    //                 console.log(downloadedCartHerbs);
+    //                 const userDoc = await getDoc(docRef)
+    //                 console.log(userDoc);
+    //                 const userCart = userDoc.data().cartHerbs
+    //                 console.log(userCart);
+    //                 downloadedCartHerbs = [...userCart]
+    //                 console.log(downloadedCartHerbs);
+    //                 dispatch(herbsActions.showDownloadedUserCart(downloadedCartHerbs))
+    //                 console.log('download');
+    //             } catch (error) {
+    //                 console.log(error);
+    //             }
+    //         }
+    //         download()
+    //     }
+    //     downloadCartHerbs()
+    // }, [dispatch])
 
     return (
         <button className='flex group items-center bg-teal-400 rounded-2xl py-1 px-2 opacity-80 transition duration-200 hover:shadow-none hover:opacity-100 max-sm:focus:opacity-100' onClick={props.onClick}>

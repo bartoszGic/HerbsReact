@@ -4,7 +4,11 @@ import Modal from "../UI/Modal";
 import { useDispatch } from "react-redux";
 import { modalsStatesActions } from "../store/modalsStates-slice";
 import DeleteUser from "./DeleteUser";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { doc } from "firebase/firestore";
+import { db } from "../../firebase-config";
+import { getDoc } from "firebase/firestore";
+import { herbsActions } from "../store/cartHerbs-slice";
 
 const UserPanel = (props) => {
     // console.log('UserPanel');
@@ -25,6 +29,7 @@ const UserPanel = (props) => {
         try {
             await signOut(auth)
             dispatch(modalsStatesActions.falseLogState())
+            console.log('logOut');
         }
         catch (error) {
             console.log(error);
@@ -33,6 +38,27 @@ const UserPanel = (props) => {
     const deleteAccountPanel = () => {
         setDeleteUserPanel(true)
     }
+
+    useEffect(() => {
+        // console.log('UserPanel-effect-download');
+        const download = async () => {
+            try {
+                const userUID = auth.currentUser.uid
+                const docRef = doc(db, 'users', userUID)
+                let downloadedCartHerbs = []
+                const userDoc = await getDoc(docRef)
+                const userCart = userDoc.data().cartHerbs
+                downloadedCartHerbs = [...userCart]
+                console.log(downloadedCartHerbs);
+                dispatch(herbsActions.showDownloadedUserCart(downloadedCartHerbs))
+                console.log('download');
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        download()
+    }, [dispatch])
+
     if (deleteUserPanel) {
         return (
             <DeleteUser onClick={props.onToggleUserToolsHandler} />
