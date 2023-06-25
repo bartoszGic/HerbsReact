@@ -4,7 +4,8 @@ const modalsStatesSlice = createSlice({
     name: 'modals',
     initialState: {
         panel: 'login',
-        logState: false
+        logState: false,
+        downloadPermition: false
     },
     reducers: {
         register(state) {
@@ -21,6 +22,12 @@ const modalsStatesSlice = createSlice({
         },
         falseLogState(state) {
             state.logState = false
+        },
+        uploadCart(state) {
+            state.downloadPermition = true
+        },
+        noUploadCart(state) {
+            state.downloadPermition = false
         }
     }
 })

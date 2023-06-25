@@ -26,7 +26,10 @@ const SignUp = (props) => {
             setLoading(true)
             await createUserWithEmailAndPassword(auth, email, password)
             await setDoc(doc(db, 'users', auth.currentUser.uid), {
-                cartHerbs: {}
+                userCart: {
+                    herbs: [],
+                    sumTotal: 0
+                }
             })
             dispatch(modalsStatesActions.trueLogState())
             setLoading(false)

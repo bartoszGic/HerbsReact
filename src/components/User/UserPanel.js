@@ -4,10 +4,7 @@ import Modal from "../UI/Modal";
 import { useDispatch } from "react-redux";
 import { modalsStatesActions } from "../store/modalsStates-slice";
 import DeleteUser from "./DeleteUser";
-import { useEffect, useState } from "react";
-import { doc } from "firebase/firestore";
-import { db } from "../../firebase-config";
-import { getDoc } from "firebase/firestore";
+import { useState } from "react";
 import { herbsActions } from "../store/cartHerbs-slice";
 
 const UserPanel = (props) => {
@@ -28,8 +25,10 @@ const UserPanel = (props) => {
     const logOutHandler = async () => {
         try {
             await signOut(auth)
+            console.log('-----------');
             dispatch(modalsStatesActions.falseLogState())
-            console.log('logOut');
+            dispatch(modalsStatesActions.noUploadCart())
+            dispatch(herbsActions.setEmptyCart())
         }
         catch (error) {
             console.log(error);
@@ -39,26 +38,6 @@ const UserPanel = (props) => {
         setDeleteUserPanel(true)
     }
 
-    useEffect(() => {
-        // console.log('UserPanel-effect-download');
-        const download = async () => {
-            try {
-                const userUID = auth.currentUser.uid
-                const docRef = doc(db, 'users', userUID)
-                let downloadedCartHerbs = []
-                const userDoc = await getDoc(docRef)
-                const userCart = userDoc.data().cartHerbs
-                downloadedCartHerbs = [...userCart]
-                console.log(downloadedCartHerbs);
-                dispatch(herbsActions.showDownloadedUserCart(downloadedCartHerbs))
-                console.log('download');
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        download()
-    }, [dispatch])
-
     if (deleteUserPanel) {
         return (
             <DeleteUser onClick={props.onToggleUserToolsHandler} />
@@ -67,11 +46,15 @@ const UserPanel = (props) => {
     return (
         <Modal onClick={props.onToggleUserToolsHandler}>
             <div className="flex flex-col">
-                <div className="text-center font-medium text-xl mb-4">Hello {`${nick}`}</div>
-                <div>
-                    <div className="flex">
+                <div className="font-medium text-xl mb-4">Hello {`${nick}`}</div>
+                <div className="grid grid-flow-row">
+                    <div className="grid grid-flow-col mb-1">
                         <div>E-mail:</div>
-                        <div>{email}</div>
+                        <div className="text-right">{email}</div>
+                    </div>
+                    <div className="grid grid-flow-col mb-1">
+                        <div>Favorites</div>
+                        <div className="text-right">TODOTODO</div>
                     </div>
                 </div>
                 <button onClick={logOutHandler} className="flex w-full bg-[#B81426] text-gray-50 justify-center rounded-xl  px-3 py-1 mt-6 mb-4 transition duration-100 hover:opacity-90 active:animate-animeBtn">Log out</button>

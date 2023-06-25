@@ -23,6 +23,7 @@ const DeleteUser = (props) => {
             await deleteUser(auth.currentUser)
             dispatch(modalsStatesActions.falseLogState())
             dispatch(modalsStatesActions.login())
+            dispatch(modalsStatesActions.noUploadCart())
             props.onClick()
         }
         catch (error) {

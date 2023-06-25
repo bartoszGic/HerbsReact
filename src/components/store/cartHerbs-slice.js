@@ -25,10 +25,8 @@ const herbsSlice = createSlice({
             } else {
                 updatedHerbs = state.herbs.concat(action.payload)
             }
-            return {
-                herbs: updatedHerbs,
-                sumTotal: updatedsumTotal,
-            }
+            state.herbs = updatedHerbs
+            state.sumTotal = updatedsumTotal
         },
         removeFromCart(state, action) {
             let updatedHerbs
@@ -49,21 +47,16 @@ const herbsSlice = createSlice({
                 updatedHerbs = [...state.herbs]
                 updatedHerbs[existCartHerbIndex] = updatedHerb
             }
-            return {
-                herbs: updatedHerbs,
-                sumTotal: updatedsumTotal,
-            }
+            state.herbs = updatedHerbs
+            state.sumTotal = updatedsumTotal
         },
         showDownloadedUserCart(state, action) {
-            const sumsTotal = action.payload.map((herb) => {
-                const typeOfHerbsPrices = [herb.price * herb.counter].reduce((a, b) => a + b, 0)
-                return typeOfHerbsPrices
-            })
-            const updatedsumTotal = sumsTotal.reduce((a, b) => a + b, 0)
-            return {
-                herbs: action.payload,
-                sumTotal: updatedsumTotal
-            }
+            state.herbs = action.payload.herbs
+            state.sumTotal = action.payload.sumTotal
+        },
+        setEmptyCart(state) {
+            state.herbs = []
+            state.sumTotal = 0
         }
     }
 })

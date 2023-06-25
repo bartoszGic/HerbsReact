@@ -43,6 +43,7 @@ const HerbsList = () => {
                         id: doc.id,
                         key: doc.id,
                         name: doc.data().name,
+                        description: doc.data().description,
                         price1: doc.data().price1,
                         price2: doc.data().price2,
                         price3: doc.data().price3,
@@ -59,6 +60,7 @@ const HerbsList = () => {
         fetchHerbs()
         setLoadingState(false)
     }, [dispatch])
+
     if (loadingState) {
         return (
             <div className="flex justify-center text-xl mt-[48px]">
@@ -80,25 +82,29 @@ const HerbsList = () => {
         )
     }
     return (
-        <section className='flex pt-[48px] justify-center w-full max-w-4xl'>
+        <section className='flex pt-[48px] justify-center w-full max-w-6xl'>
             {errorMsg
                 ?
                 <div className="text-[#B81426] pt-16 text-center text-2xl">No goods were found!</div>
                 :
-                <ul className='grid grid-cols-1 gap-x-16 gap-y-6 mt-1 md:grid-cols-2'>
-                    {herbsToBuy.map(herb =>
-                        <Herb
-                            key={herb.id}
-                            id={herb.id}
-                            name={herb.name}
-                            price1={herb.price1}
-                            price2={herb.price2}
-                            price3={herb.price3}
-                            img={herb.img}
-                        />
-                    )
-                    }
-                </ul>
+                <div className="bg-white">
+                    <div className="mx-auto max-w-2xl sm:px-6 lg:max-w-6xl lg:px-0">
+                        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-12">
+                            {herbsToBuy.map((herb) => (
+                                <Herb
+                                    key={herb.id}
+                                    id={herb.id}
+                                    name={herb.name}
+                                    description={herb.description}
+                                    price1={herb.price1}
+                                    price2={herb.price2}
+                                    price3={herb.price3}
+                                    img={herb.img}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
             }
         </section >
     )

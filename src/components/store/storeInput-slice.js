@@ -7,9 +7,7 @@ const storeSearchInputSlice = createSlice({
     },
     reducers: {
         loadInputValue(state, action) {
-            const inputValue = action.payload
-            state.inputValue = inputValue
-            console.log(state);
+            state.inputValue = action.payload
         }
     }
 })

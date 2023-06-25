@@ -8,7 +8,6 @@ import SignIn from "./components/User/SignIn";
 import UserPanel from "./components/User/UserPanel";
 import { useSelector } from "react-redux";
 
-
 function App() {
   // console.log('App');
   const [cart, setCart] = useState(false)
@@ -17,7 +16,6 @@ function App() {
 
   const modalContent = useSelector(state => state.modalContent.panel)
   const userState = useSelector(state => state.modalContent.logState)
-  // console.log(modalContent);
 
   const toggleUserToolsHandler = () => {
     setUserPanel(prevState => !prevState)
