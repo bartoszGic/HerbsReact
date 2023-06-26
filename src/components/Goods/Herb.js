@@ -33,8 +33,9 @@ const Herb = (props) => {
 
     return (
         <div key={props.id}>
-            <div className="relative aspect-h-1 aspect-w-1 h-44 w-80 overflow-hidden lg:aspect-none transition duration-100 lg:w-full lg:h-full">
-                <div className="absolute bg-transparent h-full w-full p-4 text-xs text-gray-700 font-medium text-justify object-cover object-center cursor-default lg:h-full lg:w-full transition duration-100 opacity-0 hover:opacity-100 hover:bg-white hover:bg-opacity-80">{props.description}</div>
+            <div className="relative aspect-h-1 aspect-w-1 h-44 w-80 overflow-hidden lg:aspect-none transition duration-100 sm:h-40 sm:w-72 lg:w-full lg:h-full">
+                <div className="absolute flex items-center bg-transparent h-full w-full p-4 text-xs text-gray-700 font-medium text-justify object-cover object-center cursor-default lg:h-full lg:w-full transition duration-100 opacity-0 hover:opacity-100 hover:bg-white hover:bg-opacity-80">{props.description}
+                </div>
                 <img
                     src={props.img}
                     alt={props.name}
