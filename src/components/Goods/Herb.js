@@ -10,11 +10,11 @@ const Herb = (props) => {
     const dispatch = useDispatch()
 
     const changeWeightHandl = (weight) => {
-        if (weight === '10') {
+        if (weight === 10) {
             setPrice(props.price1)
-        } else if (weight === '50') {
+        } else if (weight === 50) {
             setPrice(props.price2)
-        } else if (weight === '100') {
+        } else if (weight === 100) {
             setPrice(props.price3)
         }
     }

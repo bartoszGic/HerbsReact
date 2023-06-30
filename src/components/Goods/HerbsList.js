@@ -89,7 +89,7 @@ const HerbsList = () => {
                 :
                 <div className="bg-white">
                     <div className="mx-auto max-w-2xl sm:px-6 lg:max-w-6xl lg:px-0">
-                        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-14">
+                        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-14 ">
                             {herbsToBuy.map((herb) => (
                                 <Herb
                                     key={herb.id}
