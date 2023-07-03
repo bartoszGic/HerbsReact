@@ -2,9 +2,11 @@ import HerbOrderDetail from './HerbOrderDetail'
 import { useState } from 'react'
 import { herbsActions } from '../store/cartHerbs-slice'
 import { useDispatch } from 'react-redux'
+import { favoritesActions } from '../store/favorites-slice'
 
 
 const Herb = (props) => {
+    // console.log('Herb');
     const [price, setPrice] = useState(props.price1)
     const counter = 1
     const dispatch = useDispatch()
@@ -19,7 +21,7 @@ const Herb = (props) => {
         }
     }
 
-    const addToCartHandl = (weight) => {
+    const addToCartHandler = (weight) => {
         dispatch(herbsActions.addToCart({
             id: props.id + weight,
             name: props.name,
@@ -29,7 +31,16 @@ const Herb = (props) => {
             img: props.img
         }));
     }
-
+    const addToFavoritesHandler = () => {
+        dispatch(favoritesActions.addToFavorites({
+            name: props.name
+        }))
+    }
+    const removeFromFavoritesHandler = () => {
+        dispatch(favoritesActions.removeFromFavorites({
+            name: props.name
+        }))
+    }
 
     return (
         <div key={props.id}>
@@ -44,10 +55,15 @@ const Herb = (props) => {
             </div>
             <div className='grid grid-cols-5 px-2 mt-2'>
                 <div className='col-start-1 col-span-2'>
-                    <h3 className="text-sm text-gray-700">{props.name}</h3>
+                    <h3 className="text-md text-gray-700">{props.name}</h3>
                     <p className="mt-1 text-lg font-medium text-gray-900">{price} zł</p>
                 </div>
-                <HerbOrderDetail onAdd={addToCartHandl} onWeightChange={changeWeightHandl} />
+                <HerbOrderDetail
+                    onAddToCart={addToCartHandler}
+                    onWeightChange={changeWeightHandl}
+                    onAddToFavorites={addToFavoritesHandler}
+                    onRemoveFromFavorites={removeFromFavoritesHandler}
+                    nameOfHerb={props.name} />
             </div>
         </div>
     )

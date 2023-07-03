@@ -26,6 +26,9 @@ const storeHerbsSlice = createSlice({
                     filterHerbs: filtredHerbs
                 }
             }
+        },
+        setFavoritesHerbs(state, action) {
+            state.filterHerbs = action.payload
         }
     }
 })

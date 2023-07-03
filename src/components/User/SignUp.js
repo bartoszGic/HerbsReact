@@ -29,6 +29,9 @@ const SignUp = (props) => {
                 userCart: {
                     herbs: [],
                     sumTotal: 0
+                },
+                userFavorites: {
+                    likes: []
                 }
             })
             dispatch(modalsStatesActions.trueLogState())

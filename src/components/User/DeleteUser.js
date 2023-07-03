@@ -42,7 +42,7 @@ const DeleteUser = (props) => {
     return (
         <Modal onClick={props.onClick}>
             <div className="flex flex-col">
-                <div className="text-center font-medium text-xl mb-4"><span>{userName}</span> please, confirm details to delete account</div>
+                <div className="text-center font-medium text-xl mb-4"><span>{userName}</span>, to delete acount confirm details.</div>
                 <form className="flex flex-col items-center" onSubmit={deleteUserHandler}>
                     <div className="flex flex-col w-full">
                         <label htmlFor="emailIn" className="mb-1">E-mail</label>
