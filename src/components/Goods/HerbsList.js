@@ -6,14 +6,16 @@ import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../../firebase-config';
 import { useSelector } from 'react-redux'
 import Herb from './Herb'
+import ClearBtn from './ClearBtn';
 
 
-const HerbsList = () => {
+const HerbsList = (props) => {
     // console.log('HerbsList');
     let herbsToBuy
     let errorMsg = false
     const [loadingState, setLoadingState] = useState(true)
     const [httpsError, setHttpsError] = useState(false)
+    const [showBackBtn, setShowBackBtn] = useState(false)
 
     const allHerbs = useSelector(state => state.searchHerbs.storeHerbs)
     const filtredHerbs = useSelector(state => state.searchHerbs.filterHerbs)
@@ -61,6 +63,15 @@ const HerbsList = () => {
         setLoadingState(false)
     }, [dispatch])
 
+    useEffect(() => {
+        // console.log('HerbsList-effect');
+        if (allHerbs.length !== filtredHerbs.length || stateOfSearchInput.trim() !== '') {
+            setShowBackBtn(true)
+        } else {
+            setShowBackBtn(false)
+        }
+    }, [allHerbs, filtredHerbs, stateOfSearchInput])
+
     if (loadingState) {
         return (
             <div className="flex justify-center text-xl mt-[48px]">
@@ -87,8 +98,9 @@ const HerbsList = () => {
                 ?
                 <div className="text-[#B81426] pt-16 text-center text-2xl">No goods were found!</div>
                 :
-                <div className="flex flex-col mx-auto max-w-2xl sm:px-6 lg:max-w-6xl lg:px-0">
-                    <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-24 ">
+                <div className="relative flex flex-col mx-auto max-w-2xl sm:px-6 lg:max-w-6xl lg:px-0">
+                    {showBackBtn && <ClearBtn />}
+                    <div className={`${showBackBtn && 'mt-16'} grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-24`}>
                         {herbsToBuy.map((herb) => (
                             <Herb
                                 key={herb.id}
@@ -99,6 +111,7 @@ const HerbsList = () => {
                                 price2={herb.price2}
                                 price3={herb.price3}
                                 img={herb.img}
+                                toggleReviews={props.onToggleReviewsHandler}
                             />
                         ))}
                     </div>

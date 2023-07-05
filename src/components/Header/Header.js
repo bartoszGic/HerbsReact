@@ -9,20 +9,15 @@ import { updateDoc } from "firebase/firestore";
 import { doc } from "firebase/firestore";
 import { db } from '../../firebase-config'
 import { getDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from 'react-redux'
 import { herbsActions } from '../store/cartHerbs-slice'
 import { favoritesActions } from '../store/favorites-slice'
-import FilterBtn from './FilterBtn'
-import { storeSearchInputActions } from '../store/storeInput-slice'
 
 const Header = (props) => {
-    console.log('Header');
+    // console.log('Header');
     const userCart = useSelector(state => state.cartHerbs)
     const uploadPermition = useSelector(state => state.modalContent.uploadPermition)
-    const allHerbs = useSelector(state => state.searchHerbs.storeHerbs)
-    const filtredHerbs = useSelector(state => state.searchHerbs.filterHerbs)
-    const [showFilterCancel, setShowFilterCancel] = useState(false)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -71,33 +66,17 @@ const Header = (props) => {
         // })
     }, [dispatch, userCart, uploadPermition])
 
-    const toggleFilterBtn = () => {
-        setShowFilterCancel(false)
-        dispatch(storeSearchInputActions.loadInputValue(''))
-    }
-
-    useEffect(() => {
-        if (allHerbs.length !== filtredHerbs.length) {
-            setShowFilterCancel(true)
-        }
-    }, [allHerbs, filtredHerbs, showFilterCancel])
-
     return (
         <header className='fixed bg-teal-500 text-white w-full z-20'>
             <section className='flex justify-between max-w-4xl mx-auto items-center p-2 lg:lg:max-w-5xl'>
                 <button onClick={() => window.location.reload()}>
-                    <h1 className='md:hidden text-2xl'>HeR</h1>
-                    <h1 className='hidden md:block text-2xl'>HerbsReact</h1>
+                    <h1 className='text-2xl'>HerbsReact</h1>
                 </button>
-                {showFilterCancel &&
-                    <FilterBtn
-                        onClick={toggleFilterBtn} />}
                 <div className='flex'>
                     <LogBtn
                         onClick={props.onToggleUserToolsHandler} />
                     <SearchBtn
-                        onClick={props.onToggleSearchInputHandler}
-                        filterBtnState={showFilterCancel} />
+                        onClick={props.onToggleSearchInputHandler} />
                     <CartBtn
                         onClick={props.onToggleCartHandler} />
                 </div>

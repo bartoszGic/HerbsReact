@@ -1,8 +1,8 @@
-import HerbOrderDetail from './HerbOrderDetail'
 import { useState } from 'react'
 import { herbsActions } from '../store/cartHerbs-slice'
 import { useDispatch } from 'react-redux'
 import { favoritesActions } from '../store/favorites-slice'
+import HerbActions from './HerbActions'
 
 
 const Herb = (props) => {
@@ -54,16 +54,17 @@ const Herb = (props) => {
                 />
             </div>
             <div className='grid grid-cols-5 px-2 mt-2'>
-                <div className='col-start-1 col-span-2'>
+                <div className='flex flex-col justify-between col-span-2'>
                     <h3 className="text-md text-gray-700">{props.name}</h3>
-                    <p className="mt-1 text-lg font-medium text-gray-900">{price} zł</p>
+                    <p className="text-lg font-medium text-gray-900">{price} zł</p>
                 </div>
-                <HerbOrderDetail
+                <HerbActions
                     onAddToCart={addToCartHandler}
                     onWeightChange={changeWeightHandl}
                     onAddToFavorites={addToFavoritesHandler}
                     onRemoveFromFavorites={removeFromFavoritesHandler}
-                    nameOfHerb={props.name} />
+                    herbName={props.name}
+                    toggleReviews={props.toggleReviews} />
             </div>
         </div>
     )

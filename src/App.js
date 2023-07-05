@@ -6,33 +6,43 @@ import SearchInput from "./components/Search/SearchInput";
 import SignUp from "./components/User/SignUp";
 import SignIn from "./components/User/SignIn";
 import UserPanel from "./components/User/UserPanel";
+import Reviews from "./components/Reviews/Reviews";
 import { useSelector } from "react-redux";
 
 function App() {
-  // console.log('App');
+  console.log('App');
   const [cart, setCart] = useState(false)
   const [search, setSearch] = useState(false)
   const [userPanel, setUserPanel] = useState(false)
+  const [reviews, setReviews] = useState(false)
 
   const modalContent = useSelector(state => state.modalContent.panel)
   const userState = useSelector(state => state.modalContent.logState)
 
   const toggleUserToolsHandler = () => {
     setUserPanel(prevState => !prevState)
-    search && setSearch(false)
-    cart && setCart(false)
+    setSearch(false)
+    setCart(false)
+    setReviews(false)
   }
   const toggleCartHandler = () => {
     setCart(prevState => !prevState)
-    search && setSearch(false)
-    userPanel && setUserPanel(false)
+    setSearch(false)
+    setUserPanel(false)
+    setReviews(false)
   }
   const toggleSearchInputHandler = () => {
     setSearch(prevState => !prevState)
-    cart && setCart(false)
-    userPanel && setUserPanel(false)
+    setCart(false)
+    setUserPanel(false)
+    setReviews(false)
   }
-
+  const toggleReviewsHandler = () => {
+    setReviews(prevState => !prevState)
+    setSearch(false)
+    setCart(false)
+    setUserPanel(false)
+  }
   return (
     <>
       {(userPanel && !userState && modalContent === 'login') &&
@@ -48,13 +58,18 @@ function App() {
         <SearchInput
           onToggleSearchInputHandler={toggleSearchInputHandler}
         />}
+      {reviews &&
+        <Reviews
+          onToggleReviewsHandler={toggleReviewsHandler}
+        />}
       <Header
         onToggleUserToolsHandler={toggleUserToolsHandler}
         onToggleSearchInputHandler={toggleSearchInputHandler}
         onToggleCartHandler={toggleCartHandler}
       />
       <main className="flex justify-center w-full">
-        <HerbsList />
+        <HerbsList
+          onToggleReviewsHandler={toggleReviewsHandler} />
       </main>
     </>
   );

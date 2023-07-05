@@ -6,8 +6,10 @@ import { auth } from '../../firebase-config'
 import { db } from '../../firebase-config'
 import { doc } from 'firebase/firestore'
 import { updateDoc } from 'firebase/firestore'
+import { useDispatch } from 'react-redux'
+import { modalsStatesActions } from '../store/modalsStates-slice'
 
-const HerbOrderDetail = (props) => {
+const HerbActions = (props) => {
     // console.log('HerbOrderDetail');
     const [weight, setWeight] = useState(10)
     const [showList, setShowList] = useState(false)
@@ -15,6 +17,7 @@ const HerbOrderDetail = (props) => {
     const refOne = useRef(null)
     const favorites = useSelector(state => state.favorites)
     const uploadPermition = useSelector(state => state.modalContent.uploadPermition)
+    const dispatch = useDispatch()
 
     const choseWeightHandler = (value) => {
         setWeight(value)
@@ -24,11 +27,15 @@ const HerbOrderDetail = (props) => {
         !refOne.current.contains(e.target) && setShowList(false)
     }
     const onAddAndRemoveToFavorites = () => {
-        if (!favorites.likes.includes(props.nameOfHerb)) {
+        if (!favorites.likes.includes(props.herbName)) {
             props.onAddToFavorites()
         } else {
             props.onRemoveFromFavorites()
         }
+    }
+    const toggleAndSetReviewedHerb = () => {
+        props.toggleReviews()
+        dispatch(modalsStatesActions.setReviewedHerb(props.herbName))
     }
 
     useEffect(() => {
@@ -39,8 +46,9 @@ const HerbOrderDetail = (props) => {
     useEffect(() => {
         document.addEventListener('click', outsideClickCatch)
     }, [])
+
     useEffect(() => {
-        if (favorites.likes.includes(props.nameOfHerb)) {
+        if (favorites.likes.includes(props.herbName)) {
             setHeartColor('#B81426')
         } else {
             setHeartColor('none')
@@ -97,8 +105,9 @@ const HerbOrderDetail = (props) => {
                     <button className='bg-teal-500 text-gray-50 rounded-2xl px-3 py-1 transition duration-100 hover:opacity-90'
                         onClick={() => props.onAddToCart(weight)}>Add</button>
                 </div>
+                <button onClick={toggleAndSetReviewedHerb} className='col-span-3 text-right mt-2 text-gray-500'>Reviews (3)</button>
             </div>
         </div>
     )
 }
-export default HerbOrderDetail
+export default HerbActions

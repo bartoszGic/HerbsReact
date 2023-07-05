@@ -5,7 +5,8 @@ const modalsStatesSlice = createSlice({
     initialState: {
         panel: 'login',
         logState: false,
-        uploadPermition: false
+        uploadPermition: false,
+        reviewedHerb: null
     },
     reducers: {
         register(state) {
@@ -28,6 +29,9 @@ const modalsStatesSlice = createSlice({
         },
         noUploadPermition(state) {
             state.uploadPermition = false
+        },
+        setReviewedHerb(state, action) {
+            state.reviewedHerb = action.payload
         }
     }
 })
