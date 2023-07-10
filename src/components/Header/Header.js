@@ -11,7 +11,7 @@ import { db } from '../../firebase-config'
 import { getDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import { useSelector } from 'react-redux'
-import { herbsActions } from '../store/cartHerbs-slice'
+import { cartHerbsActions } from '../store/cartHerbs-slice'
 import { favoritesActions } from '../store/favorites-slice'
 
 const Header = (props) => {
@@ -31,7 +31,7 @@ const Header = (props) => {
                         const userDoc = await getDoc(docRef)
                         const downloadedUserCart = userDoc.data().userCart
                         const downloadedUserFavorites = userDoc.data().userFavorites
-                        dispatch(herbsActions.showDownloadedUserCart(downloadedUserCart))
+                        dispatch(cartHerbsActions.showDownloadedUserCart(downloadedUserCart))
                         dispatch(favoritesActions.showDownloadedUserFavorites(downloadedUserFavorites))
                         dispatch(modalsStatesActions.uploadPermition())
                     }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { herbsActions } from '../store/cartHerbs-slice'
+import { cartHerbsActions } from '../store/cartHerbs-slice'
 import { useDispatch } from 'react-redux'
 import { favoritesActions } from '../store/favorites-slice'
 import HerbActions from './HerbActions'
@@ -22,7 +22,7 @@ const Herb = (props) => {
     }
 
     const addToCartHandler = (weight) => {
-        dispatch(herbsActions.addToCart({
+        dispatch(cartHerbsActions.addToCart({
             id: props.id + weight,
             name: props.name,
             weight: weight,
@@ -55,7 +55,7 @@ const Herb = (props) => {
             </div>
             <div className='grid grid-cols-5 px-2 mt-2'>
                 <div className='flex flex-col justify-between col-span-2'>
-                    <h3 className="text-md text-gray-700">{props.name}</h3>
+                    <h3 className="text-gray-700">{props.name}</h3>
                     <p className="text-lg font-medium text-gray-900">{price} zł</p>
                 </div>
                 <HerbActions

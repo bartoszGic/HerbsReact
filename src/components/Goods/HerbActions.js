@@ -24,7 +24,7 @@ const HerbActions = (props) => {
         setShowList(false)
     }
     const outsideClickCatch = (e) => {
-        !refOne.current.contains(e.target) && setShowList(false)
+        (refOne.current && !refOne.current.contains(e.target)) && setShowList(false)
     }
     const onAddAndRemoveToFavorites = () => {
         if (!favorites.likes.includes(props.herbName)) {

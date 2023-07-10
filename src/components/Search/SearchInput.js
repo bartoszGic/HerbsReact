@@ -26,8 +26,8 @@ const SearchInput = (props) => {
                     type="text"
                     id='searchingHerb'
                     placeholder="Find product..."
-                    onChange={(e) => setinputValue(e.target.value)}
                     value={inputValue}
+                    onChange={(e) => setinputValue(e.target.value)}
                 />
                 <button type="submit" className='ml-4 bg-[#B81426] text-gray-50 rounded-xl px-3 py-1 transition duration-100 hover:opacity-90 active:animate-animeBtn'>Search</button>
             </form>

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { modalsStatesActions } from "../store/modalsStates-slice";
 import DeleteUser from "./DeleteUser";
 import { useEffect, useState } from "react";
-import { herbsActions } from "../store/cartHerbs-slice";
+import { cartHerbsActions } from "../store/cartHerbs-slice";
 import { favoritesActions } from "../store/favorites-slice";
 import { storeHerbsActions } from "../store/storedHerbs-slice";
 
@@ -25,7 +25,7 @@ const UserPanel = (props) => {
             await signOut(auth)
             dispatch(modalsStatesActions.falseLogState())
             dispatch(modalsStatesActions.noUploadPermition())
-            dispatch(herbsActions.setEmptyCart())
+            dispatch(cartHerbsActions.setEmptyCart())
             dispatch(favoritesActions.setEmptyFavorites())
         }
         catch (error) {

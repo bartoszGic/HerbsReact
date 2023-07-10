@@ -4,6 +4,8 @@ import { doc, deleteDoc } from "firebase/firestore"
 import { auth, db } from "../../firebase-config"
 import { useDispatch } from "react-redux"
 import { modalsStatesActions } from "../store/modalsStates-slice"
+import { cartHerbsActions } from "../store/cartHerbs-slice"
+import { favoritesActions } from "../store/favorites-slice"
 import Modal from "../UI/Modal"
 
 const DeleteUser = (props) => {
@@ -23,7 +25,9 @@ const DeleteUser = (props) => {
             await deleteUser(auth.currentUser)
             dispatch(modalsStatesActions.falseLogState())
             dispatch(modalsStatesActions.login())
-            dispatch(modalsStatesActions.noUploadCart())
+            dispatch(modalsStatesActions.noUploadPermition())
+            dispatch(cartHerbsActions.setEmptyCart())
+            dispatch(favoritesActions.setEmptyFavorites())
             props.onClick()
         }
         catch (error) {

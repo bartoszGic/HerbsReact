@@ -10,7 +10,7 @@ import Reviews from "./components/Reviews/Reviews";
 import { useSelector } from "react-redux";
 
 function App() {
-  console.log('App');
+  // console.log('App');
   const [cart, setCart] = useState(false)
   const [search, setSearch] = useState(false)
   const [userPanel, setUserPanel] = useState(false)
@@ -61,6 +61,7 @@ function App() {
       {reviews &&
         <Reviews
           onToggleReviewsHandler={toggleReviewsHandler}
+          onToggleUserToolsHandler={toggleUserToolsHandler}
         />}
       <Header
         onToggleUserToolsHandler={toggleUserToolsHandler}

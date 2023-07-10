@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import Modal from '../UI/Modal'
 import CartHerb from './CartHerb'
-import { herbsActions } from '../store/cartHerbs-slice'
+import { cartHerbsActions } from '../store/cartHerbs-slice'
 
 const Cart = (props) => {
     // console.log('Cart');
@@ -12,10 +12,10 @@ const Cart = (props) => {
     const hasHerbs = cartHerbs.length > 0
 
     const herbAddHandler = (herb) => {
-        dispatch(herbsActions.addToCart(herb))
+        dispatch(cartHerbsActions.addToCart(herb))
     }
     const herbRemoveHandler = (id) => {
-        dispatch(herbsActions.removeFromCart(id))
+        dispatch(cartHerbsActions.removeFromCart(id))
     }
     const orderHandler = () => {
         if (!logState) {

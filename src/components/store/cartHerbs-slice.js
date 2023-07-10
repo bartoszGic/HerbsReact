@@ -61,5 +61,5 @@ const herbsSlice = createSlice({
     }
 })
 
-export const herbsActions = herbsSlice.actions
+export const cartHerbsActions = herbsSlice.actions
 export default herbsSlice
