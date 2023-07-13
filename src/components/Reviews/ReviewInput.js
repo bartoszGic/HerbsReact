@@ -6,17 +6,22 @@ import { getDoc, updateDoc } from "firebase/firestore"
 import { doc } from "firebase/firestore"
 import { db } from "../../firebase-config"
 import { auth } from "../../firebase-config"
+import ReviewInputRating from "./ReviewInputRating"
 
 const ReviewInput = (props) => {
-    console.log('ReviewsInput');
+    // console.log('ReviewsInput');
     const dispatch = useDispatch()
     const logState = useSelector(state => state.modalContent.logState)
     const [inputValue, setInputValue] = useState('')
+    const [rating, setRating] = useState(null)
 
     const showSignInPanelHandler = () => {
         dispatch(modalsStatesActions.login())
         props.onToggleReviewsHandler()
         props.onToggleUserToolsHandler()
+    }
+    const getRating = (val) => {
+        setRating(val)
     }
 
     const addReviewHandler = async (e) => {
@@ -26,7 +31,8 @@ const ReviewInput = (props) => {
             const newReview = {
                 user: auth.currentUser.email,
                 review: inputValue,
-                time: date.getTime()
+                time: date.getTime(),
+                rate: rating
             }
             const docRef = doc(db, 'herbsReviews', props.herbName)
             const docSnap = await getDoc(docRef);
@@ -37,13 +43,12 @@ const ReviewInput = (props) => {
             })
             const newDocSnap = await getDoc(docRef);
             const newDocData = newDocSnap.data().reviews
-            props.test(newDocData)
+            props.getReview(newDocData)
             setInputValue('')
         } catch (error) {
             console.log(error);
         }
     }
-
 
     return (
         <>
@@ -57,7 +62,8 @@ const ReviewInput = (props) => {
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                     />
-                    <div className="flex justify-end mt-4">
+                    <div className="flex justify-between mt-4">
+                        <ReviewInputRating getRating={getRating} />
                         <button type="submit" className='bg-teal-500 text-gray-50 rounded-xl px-3 py-1 transition duration-100 hover:opacity-90 active:animate-animeBtn'>Add review</button>
                     </div>
                 </form>

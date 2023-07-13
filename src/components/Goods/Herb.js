@@ -3,11 +3,14 @@ import { cartHerbsActions } from '../store/cartHerbs-slice'
 import { useDispatch } from 'react-redux'
 import { favoritesActions } from '../store/favorites-slice'
 import HerbActions from './HerbActions'
-
+import { doc, getDoc } from 'firebase/firestore'
+import { db } from '../../firebase-config'
+import { useEffect } from 'react'
 
 const Herb = (props) => {
     // console.log('Herb');
     const [price, setPrice] = useState(props.price1)
+    const [reviewsNumber, setReviewsNumber] = useState(0)
     const counter = 1
     const dispatch = useDispatch()
 
@@ -41,6 +44,18 @@ const Herb = (props) => {
             name: props.name
         }))
     }
+    useEffect(() => {
+        const fetchReviewsNumber = async () => {
+            try {
+                const docRef = doc(db, 'herbsReviews', props.name)
+                const docSnap = await getDoc(docRef);
+                setReviewsNumber(docSnap.data().reviews.length)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchReviewsNumber()
+    }, [props, reviewsNumber])
 
     return (
         <div key={props.id}>
@@ -64,7 +79,8 @@ const Herb = (props) => {
                     onAddToFavorites={addToFavoritesHandler}
                     onRemoveFromFavorites={removeFromFavoritesHandler}
                     herbName={props.name}
-                    toggleReviews={props.toggleReviews} />
+                    toggleReviews={props.toggleReviews}
+                    reviewsNumber={reviewsNumber} />
             </div>
         </div>
     )

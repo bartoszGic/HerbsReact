@@ -10,15 +10,12 @@ import Review from "./Review";
 
 
 const Reviews = (props) => {
-    console.log('Reviews');
+    // console.log('Reviews');
     const reviewedHerb = useSelector(state => state.modalContent.reviewedHerb)
     const [downloadedReviews, setDownloadedReviews] = useState([])
 
-
-
-    const test = (data) => {
+    const getReview = (data) => {
         setDownloadedReviews(data)
-        console.log(downloadedReviews);
     }
 
     useEffect(() => {
@@ -51,7 +48,7 @@ const Reviews = (props) => {
                     onToggleReviewsHandler={props.onToggleReviewsHandler}
                     onToggleUserToolsHandler={props.onToggleUserToolsHandler}
                     herbName={reviewedHerb}
-                    test={test}
+                    getReview={getReview}
                 />
             </div>
         </Modal>

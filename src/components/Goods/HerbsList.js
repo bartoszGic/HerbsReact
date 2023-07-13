@@ -38,8 +38,11 @@ const HerbsList = (props) => {
         const fetchHerbs = async () => {
             try {
                 const loadedHerbs = []
-                const herbsCollectionRef = collection(db, 'herbs')
-                const herbsDocs = await getDocs(herbsCollectionRef)
+                const herbsRef = collection(db, 'herbs')
+                const herbsReviewsRef = collection(db, 'herbsReviews')
+                const herbsDocs = await getDocs(herbsRef)
+                const herbsReviewsDocs = await getDocs(herbsReviewsRef)
+                console.log(herbsReviewsDocs.query);
                 herbsDocs.forEach((doc) => {
                     loadedHerbs.push({
                         id: doc.id,
