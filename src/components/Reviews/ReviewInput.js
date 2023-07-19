@@ -8,12 +8,14 @@ import { db } from "../../firebase-config"
 import { auth } from "../../firebase-config"
 import ReviewInputRating from "./ReviewInputRating"
 
+
 const ReviewInput = (props) => {
-    // console.log('ReviewsInput');
+    console.log('ReviewsInput');
     const dispatch = useDispatch()
     const logState = useSelector(state => state.modalContent.logState)
     const [inputValue, setInputValue] = useState('')
     const [rating, setRating] = useState(null)
+    const [clear, setClear] = useState(false)
 
     const showSignInPanelHandler = () => {
         dispatch(modalsStatesActions.login())
@@ -27,24 +29,27 @@ const ReviewInput = (props) => {
     const addReviewHandler = async (e) => {
         e.preventDefault()
         try {
-            const date = new Date()
-            const newReview = {
-                user: auth.currentUser.email,
-                review: inputValue,
-                time: date.getTime(),
-                rate: rating
+            if (inputValue.trim() !== '') {
+                const date = new Date()
+                const newReview = {
+                    user: auth.currentUser.email.substring(0, auth.currentUser.email.indexOf('@')),
+                    review: inputValue,
+                    time: date.getTime(),
+                    rate: rating
+                }
+                const docRef = doc(db, 'herbsReviews', props.herbName)
+                const docSnap = await getDoc(docRef);
+                const docData = docSnap.data().reviews
+                docData.push(newReview)
+                await updateDoc(docRef, {
+                    reviews: docData
+                })
+                const newDocSnap = await getDoc(docRef);
+                const newDocData = newDocSnap.data().reviews
+                props.getReview(newDocData)
+                setInputValue('')
+                setClear(true)
             }
-            const docRef = doc(db, 'herbsReviews', props.herbName)
-            const docSnap = await getDoc(docRef);
-            const docData = docSnap.data().reviews
-            docData.push(newReview)
-            await updateDoc(docRef, {
-                reviews: docData
-            })
-            const newDocSnap = await getDoc(docRef);
-            const newDocData = newDocSnap.data().reviews
-            props.getReview(newDocData)
-            setInputValue('')
         } catch (error) {
             console.log(error);
         }
@@ -53,7 +58,7 @@ const ReviewInput = (props) => {
     return (
         <>
             {logState ?
-                <form className="flex flex-col justify-center mt-4" onSubmit={addReviewHandler}>
+                <form className="flex flex-col justify-center mt-4">
                     <textarea className="w-full h-20 resize-none border rounded-xl py-2 px-3 text-xs"
                         type="text"
                         id='writeReview'
@@ -62,10 +67,10 @@ const ReviewInput = (props) => {
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                     />
-                    <div className="flex justify-between mt-4">
-                        <ReviewInputRating getRating={getRating} />
-                        <button type="submit" className='bg-teal-500 text-gray-50 rounded-xl px-3 py-1 transition duration-100 hover:opacity-90 active:animate-animeBtn'>Add review</button>
-                    </div>
+                    <ReviewInputRating
+                        getRating={getRating}
+                        onAddReviewHandler={addReviewHandler}
+                        clear={clear} />
                 </form>
                 :
                 <div className="text-center text-gray-700 mt-4">To write review you need to

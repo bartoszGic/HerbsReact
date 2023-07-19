@@ -41,7 +41,9 @@ const Reviews = (props) => {
                             key={rev.time}
                             time={rev.time}
                             name={rev.user}
-                            review={rev.review} />
+                            review={rev.review}
+                            rate={rev.rate}
+                        />
                     ))}
                 </ul>
                 <ReviewInput
