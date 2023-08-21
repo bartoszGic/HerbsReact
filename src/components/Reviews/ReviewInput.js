@@ -2,20 +2,19 @@ import { useSelector } from "react-redux"
 import { modalsStatesActions } from "../store/modalsStates-slice"
 import { useDispatch } from "react-redux"
 import { useState } from "react"
-import { getDoc, updateDoc } from "firebase/firestore"
-import { doc } from "firebase/firestore"
-import { db } from "../../firebase-config"
 import { auth } from "../../firebase-config"
 import ReviewInputRating from "./ReviewInputRating"
 
 
 const ReviewInput = (props) => {
-    console.log('ReviewsInput');
+    // console.log('ReviewsInput');
     const dispatch = useDispatch()
     const logState = useSelector(state => state.modalContent.logState)
     const [inputValue, setInputValue] = useState('')
     const [rating, setRating] = useState(null)
-    const [clear, setClear] = useState(false)
+    const [isEmpty, setIsEmpty] = useState(false)
+    const currentUser = auth.currentUser.email.substring(0, auth.currentUser.email.indexOf('@'))
+
 
     const showSignInPanelHandler = () => {
         dispatch(modalsStatesActions.login())
@@ -26,40 +25,34 @@ const ReviewInput = (props) => {
         setRating(val)
     }
 
-    const addReviewHandler = async (e) => {
-        e.preventDefault()
+    const addReviewHandler = async () => {
+        // e.preventDefault()
         try {
             if (inputValue.trim() !== '') {
-                const date = new Date()
+                const now = new Date()
+                const date = `${now.getDate()}.${now.getMonth() + 1}.${now.getFullYear()}`
                 const newReview = {
-                    user: auth.currentUser.email.substring(0, auth.currentUser.email.indexOf('@')),
+                    user: currentUser,
                     review: inputValue,
-                    time: date.getTime(),
-                    rate: rating
+                    time: date,
+                    rate: rating,
+                    key: now.getTime()
                 }
-                const docRef = doc(db, 'herbsReviews', props.herbName)
-                const docSnap = await getDoc(docRef);
-                const docData = docSnap.data().reviews
-                docData.push(newReview)
-                await updateDoc(docRef, {
-                    reviews: docData
-                })
-                const newDocSnap = await getDoc(docRef);
-                const newDocData = newDocSnap.data().reviews
-                props.getReview(newDocData)
+                props.uploadReviews(newReview)
                 setInputValue('')
-                setClear(true)
+                setIsEmpty(false)
+            } else {
+                setIsEmpty(true)
             }
         } catch (error) {
             console.log(error);
         }
     }
-
     return (
         <>
             {logState ?
                 <form className="flex flex-col justify-center mt-4">
-                    <textarea className="w-full h-20 resize-none border rounded-xl py-2 px-3 text-xs"
+                    <textarea className={`w-full h-20 resize-none rounded-xl border ${isEmpty ? "border-[#B81426]" : 'border'} py-2 px-3 text-xs`}
                         type="text"
                         id='writeReview'
                         placeholder="Write review..."
@@ -70,7 +63,8 @@ const ReviewInput = (props) => {
                     <ReviewInputRating
                         getRating={getRating}
                         onAddReviewHandler={addReviewHandler}
-                        clear={clear} />
+                        reviewExist={props.reviewExist}
+                    />
                 </form>
                 :
                 <div className="text-center text-gray-700 mt-4">To write review you need to

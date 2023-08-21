@@ -39,10 +39,10 @@ const HerbsList = (props) => {
             try {
                 const loadedHerbs = []
                 const herbsRef = collection(db, 'herbs')
-                const herbsReviewsRef = collection(db, 'herbsReviews')
+                // const herbsReviewsRef = collection(db, 'herbsReviews')
                 const herbsDocs = await getDocs(herbsRef)
-                const herbsReviewsDocs = await getDocs(herbsReviewsRef)
-                console.log(herbsReviewsDocs.query);
+                // const herbsReviewsDocs = await getDocs(herbsReviewsRef)
+                // console.log(herbsReviewsDocs.query);
                 herbsDocs.forEach((doc) => {
                     loadedHerbs.push({
                         id: doc.id,
