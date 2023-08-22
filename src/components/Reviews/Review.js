@@ -1,8 +1,5 @@
 
 const Review = (props) => {
-    // props.rate
-
-
     return (
         <li className="mb-4 break-words">
             <div className="flex justify-between">

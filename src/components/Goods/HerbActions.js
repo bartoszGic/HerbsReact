@@ -7,7 +7,6 @@ import HerbActionsFavorites from './HerbActionsFavorites'
 import HerbActionsChooseWeight from './HerbActionsChooseWeight'
 
 const HerbActions = (props) => {
-    // console.log('HerbOrderDetail');
     const [weight, setWeight] = useState(10)
     const [heartColor, setHeartColor] = useState('none')
     const favorites = useSelector(state => state.favorites)

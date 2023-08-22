@@ -11,7 +11,6 @@ import { auth } from "../../firebase-config";
 
 
 const Reviews = (props) => {
-    // console.log('Reviews');
     const currentUser = auth.currentUser.email.substring(0, auth.currentUser.email.indexOf('@'))
     const reviewedHerb = useSelector(state => state.modalContent.reviewedHerb)
     const [downloadedReviews, setDownloadedReviews] = useState([])
@@ -45,7 +44,6 @@ const Reviews = (props) => {
     }
 
     useEffect(() => {
-        // console.log('Reviews-effect');
         const downloadReviews = async () => {
             try {
                 const docRef = doc(db, 'herbsReviews', reviewedHerb)

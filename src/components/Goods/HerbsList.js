@@ -10,7 +10,6 @@ import ClearBtn from './ClearBtn';
 
 
 const HerbsList = (props) => {
-    // console.log('HerbsList');
     let herbsToBuy
     let errorMsg = false
     const [loadingState, setLoadingState] = useState(true)
@@ -34,15 +33,11 @@ const HerbsList = (props) => {
 
 
     useEffect(() => {
-        // console.log('HerbsList-useEffect');
         const fetchHerbs = async () => {
             try {
                 const loadedHerbs = []
                 const herbsRef = collection(db, 'herbs')
-                // const herbsReviewsRef = collection(db, 'herbsReviews')
                 const herbsDocs = await getDocs(herbsRef)
-                // const herbsReviewsDocs = await getDocs(herbsReviewsRef)
-                // console.log(herbsReviewsDocs.query);
                 herbsDocs.forEach((doc) => {
                     loadedHerbs.push({
                         id: doc.id,
@@ -67,7 +62,6 @@ const HerbsList = (props) => {
     }, [dispatch])
 
     useEffect(() => {
-        // console.log('HerbsList-effect');
         if (allHerbs.length !== filtredHerbs.length || stateOfSearchInput.trim() !== '') {
             setShowBackBtn(true)
         } else {

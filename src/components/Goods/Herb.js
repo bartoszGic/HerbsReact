@@ -8,7 +8,6 @@ import { db } from '../../firebase-config'
 import { useEffect } from 'react'
 
 const Herb = (props) => {
-    // console.log('Herb');
     const [price, setPrice] = useState(props.price1)
     const [reviewsNumber, setReviewsNumber] = useState(0)
     const counter = 1

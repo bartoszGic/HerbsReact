@@ -8,7 +8,6 @@ import { modalsStatesActions } from "../store/modalsStates-slice"
 
 
 const SignUp = (props) => {
-    // console.log('SignUp');
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [password1, setPassword1] = useState('')

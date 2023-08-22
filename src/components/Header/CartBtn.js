@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux"
 
 const CartBtn = (props) => {
-    // console.log('CartBtn');
     const userCartHerbs = useSelector(state => state.cartHerbs.herbs)
     const sumCartHerbs = userCartHerbs.reduce((curNum, herb) => {
         return curNum + herb.weight / herb.weight

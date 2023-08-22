@@ -4,7 +4,6 @@ import CartHerb from './CartHerb'
 import { cartHerbsActions } from '../store/cartHerbs-slice'
 
 const Cart = (props) => {
-    // console.log('Cart');
     const dispatch = useDispatch()
     const total = useSelector(state => state.cartHerbs.sumTotal.toFixed(2))
     const cartHerbs = useSelector(state => state.cartHerbs.herbs)
@@ -23,7 +22,6 @@ const Cart = (props) => {
             props.onOrderIfLogged()
         }
     }
-    // console.log(cartHerbs);
 
     const addedToCartHerbs = (
         <ul className='overflow-auto max-h-96 divide-y'>
@@ -44,7 +42,7 @@ const Cart = (props) => {
 
     return (
         <Modal onClick={props.onToggleCartHandler}>
-            <div className='text-center font-medium text-xl'>Cart</div>
+            <h3 className='text-center font-medium text-xl'>Cart</h3>
             {addedToCartHerbs}
             <div
                 className='flex font-medium justify-center mt-2'>

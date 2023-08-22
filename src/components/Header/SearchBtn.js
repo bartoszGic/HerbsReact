@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 const SearchBtn = (props) => {
-    // console.log('SearchBtn');
     let loupeColor
     const stateOfInput = useSelector(state => state.inputValue.inputValue)
     const allHerbs = useSelector(state => state.searchHerbs.storeHerbs)

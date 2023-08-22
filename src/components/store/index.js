@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit'
-// import logger from 'redux-logger'
 
 import herbsSlice from './cartHerbs-slice'
 import storeHerbsSlice from './storedHerbs-slice'
@@ -14,8 +13,7 @@ const store = configureStore({
         inputValue: storeSearchInputSlice.reducer,
         modalContent: modalsStatesSlice.reducer,
         favorites: favoritesSlice.reducer
-    },
-    // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+    }
 })
 
 export default store

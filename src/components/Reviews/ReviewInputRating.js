@@ -36,7 +36,6 @@ const ReviewInputRating = (props) => {
     useEffect(() => {
         previousRating.current = rating
         props.getRating(rating)
-        // props.clear === true && setRating(null)
     }, [rating, props, reviewAdded])
 
     return (

@@ -10,7 +10,6 @@ import { favoritesActions } from "../store/favorites-slice";
 import { storeHerbsActions } from "../store/storedHerbs-slice";
 
 const UserPanel = (props) => {
-    // console.log('UserPanel');
     const [deleteUserPanel, setDeleteUserPanel] = useState(false)
     const [disabledFavorites, setDisabledFavorites] = useState(true)
     const allHerbs = useSelector(state => state.searchHerbs.storeHerbs)
@@ -48,19 +47,24 @@ const UserPanel = (props) => {
     }
     return (
         <Modal onClick={props.onToggleUserToolsHandler}>
-            <div className="flex flex-col items-center">
-                <div className="font-medium text-2xl mb-4">{`${nick}`}</div>
-                <div className="grid grid-flow-row">
-                    <div className="grid grid-flow-col mb-1 text-md text-gray-700 justify-center">
-                        <div>{email}</div>
+            <div className="grid grid-cols-1">
+                <h3 className='mb-4 text-center font-medium text-xl'>User panel</h3>
+                <div className="grid grid-cols-4">
+                    <div className="my-2 col-span-2">
+                        <div className="mb-1 text-sm text-gray-500">username:</div>
+                        <div className="mb-1 text-sm text-gray-500">email:</div>
+                        <div className="grid grid-cols-1 gap-y-2 mt-4">
+                            <button disabled={disabledFavorites} className={!disabledFavorites ? "flex text-teal-500 text-sm transition duration-100 hover:opacity-90 active:animate-animeBtn" : "text-gray-500"} onClick={showUserFavorites}>Favorites</button>
+                            <button onClick={logOutHandler} className="flex text-teal-500 text-sm transition duration-100 hover:opacity-90 active:animate-animeBtn">Log out</button>
+                            <button onClick={() => setDeleteUserPanel(true)} className="flex text-[#B81426] text-sm transition duration-100 hover:opacity-90 active:animate-animeBtn">Delete account</button>
+                        </div>
                     </div>
-                    <div className="flex">
-                        <button disabled={disabledFavorites} className={!disabledFavorites ? "bg-[#B81426]  text-gray-50 rounded-xl py-0.5 px-4 mt-2 transition duration-100 hover:opacity-90 active:animate-animeBtn" : "bg-gray-500   text-gray-50 rounded-xl py-0.5 px-4 mt-2"}
-                            onClick={showUserFavorites}>Favorites</button>
+                    <div className="my-2 col-span-2">
+                        <div className="mb-1 text-sm text-black">{nick}</div>
+                        <div className="mb-1 text-sm text-black">{email}</div>
                     </div>
                 </div>
-                <button onClick={logOutHandler} className="flex w-full bg-teal-500 text-gray-50 justify-center rounded-xl  px-3 py-1 mt-10 mb-4 transition duration-100 hover:opacity-90 active:animate-animeBtn">Log out</button>
-                <button onClick={() => setDeleteUserPanel(true)} className="text-[#B81426] font-bold text-sm p-1 mx-auto transition duration-100 hover:opacity-90 active:animate-animeBtn">Delete account</button>
+
             </div>
         </Modal>
     )

@@ -7,7 +7,6 @@ import ReviewInputRating from "./ReviewInputRating"
 
 
 const ReviewInput = (props) => {
-    // console.log('ReviewsInput');
     const dispatch = useDispatch()
     const logState = useSelector(state => state.modalContent.logState)
     const [inputValue, setInputValue] = useState('')
@@ -26,7 +25,6 @@ const ReviewInput = (props) => {
     }
 
     const addReviewHandler = async () => {
-        // e.preventDefault()
         try {
             if (inputValue.trim() !== '') {
                 const now = new Date()

@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux"
 const LogBtn = (props) => {
-    // console.log('LogBtn');
     let userColor
     const userState = useSelector(state => state.modalContent.logState)
     if (userState === true) {

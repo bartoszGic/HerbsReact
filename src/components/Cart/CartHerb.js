@@ -1,7 +1,6 @@
 
 
 const CartHerb = (props) => {
-    // console.log('CartHerb');
     const price = props.price.toFixed(2)
     return (
         <li className="grid grid-cols-6 text-gray-900 py-4">

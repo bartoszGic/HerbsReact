@@ -21,7 +21,6 @@ const Header = (props) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        // console.log('App-effect-download');
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 dispatch(modalsStatesActions.trueLogState())
@@ -45,10 +44,6 @@ const Header = (props) => {
     }, [dispatch])
 
     useEffect(() => {
-        //Kiedy użytkownik sie wylogowuje i ponownie loguje za każdym razem ilość zapytań do serwera się zwieksza, ddy usunę onAuthStateChanged działa poprawnie ale wyskakuje błąd Cannot read properties of null (reading 'uid')
-
-        // onAuthStateChanged(auth, (user) => {
-        //     if (user) {
         const uploadUserCart = async () => {
             try {
                 const docRef = doc(db, 'users', auth.currentUser.uid)
@@ -58,12 +53,10 @@ const Header = (props) => {
                     })
                 }
             } catch (error) {
-                // console.log(error);
+                console.log(error);
             }
         }
         uploadUserCart()
-        //     }
-        // })
     }, [dispatch, userCart, uploadPermition])
 
     return (
