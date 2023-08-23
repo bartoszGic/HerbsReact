@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/HerbsReact/static/css/main.ee2da61f.css",
-    "main.js": "/HerbsReact/static/js/main.eacfefb1.js",
+    "main.css": "/HerbsReact/static/css/main.8c2fd195.css",
+    "main.js": "/HerbsReact/static/js/main.4c23f013.js",
     "index.html": "/HerbsReact/index.html",
-    "main.ee2da61f.css.map": "/HerbsReact/static/css/main.ee2da61f.css.map",
-    "main.eacfefb1.js.map": "/HerbsReact/static/js/main.eacfefb1.js.map"
+    "main.8c2fd195.css.map": "/HerbsReact/static/css/main.8c2fd195.css.map",
+    "main.4c23f013.js.map": "/HerbsReact/static/js/main.4c23f013.js.map"
   },
   "entrypoints": [
-    "static/css/main.ee2da61f.css",
-    "static/js/main.eacfefb1.js"
+    "static/css/main.8c2fd195.css",
+    "static/js/main.4c23f013.js"
   ]
 }
