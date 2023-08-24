@@ -1,6 +1,5 @@
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { modalsStatesActions } from "../store/modalsStates-slice"
-import { useDispatch } from "react-redux"
 import { useState } from "react"
 import { auth } from "../../firebase-config"
 import ReviewInputRating from "./ReviewInputRating"
@@ -12,8 +11,14 @@ const ReviewInput = (props) => {
     const [inputValue, setInputValue] = useState('')
     const [rating, setRating] = useState(null)
     const [isEmpty, setIsEmpty] = useState(false)
-    const currentUser = auth.currentUser.email.substring(0, auth.currentUser.email.indexOf('@'))
+    const currentUser = auth.currentUser
+    let currentUserName
 
+    if (currentUser !== null) {
+        currentUserName = currentUser.email.substring(0, currentUser.email.indexOf('@'))
+    } else {
+        currentUserName = ''
+    }
 
     const showSignInPanelHandler = () => {
         dispatch(modalsStatesActions.login())
@@ -30,7 +35,7 @@ const ReviewInput = (props) => {
                 const now = new Date()
                 const date = `${now.getDate()}.${now.getMonth() + 1}.${now.getFullYear()}`
                 const newReview = {
-                    user: currentUser,
+                    user: currentUserName,
                     review: inputValue,
                     time: date,
                     rate: rating,

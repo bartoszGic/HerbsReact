@@ -1,13 +1,10 @@
-import { useDispatch } from 'react-redux'
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react';
 import { storeHerbsActions } from '../store/storedHerbs-slice';
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../../firebase-config';
-import { useSelector } from 'react-redux'
 import Herb from './Herb'
 import ClearBtn from './ClearBtn';
-
 
 const HerbsList = (props) => {
     let herbsToBuy
@@ -30,7 +27,6 @@ const HerbsList = (props) => {
     if (filtredHerbs.length === 0 && stateOfSearchInput !== '') {
         errorMsg = true
     }
-
 
     useEffect(() => {
         const fetchHerbs = async () => {

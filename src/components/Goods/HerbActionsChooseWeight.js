@@ -1,6 +1,4 @@
-import { useState } from "react"
-import { useEffect } from "react"
-import { useRef } from "react"
+import { useState, useEffect, useRef } from "react"
 
 const HerbActionsChooseWeight = (props) => {
     const [showList, setShowList] = useState(false)
@@ -37,9 +35,9 @@ const HerbActionsChooseWeight = (props) => {
                 </svg>
             </div>
             <ul className={`absolute flex-col mt-1 transition bg-white p-1 rounded-md ${showList ? 'flex' : 'hidden'}`}>
-                <li value="10" className='transition duration-100 hover:text-black' onClick={(e) => choseWeightHandler(e.target.value)}>10g</li>
-                <li value="50" className='transition duration-100 hover:text-black' onClick={(e) => choseWeightHandler(e.target.value)}>50g</li>
-                <li value="100" className='transition duration-100 hover:text-black' onClick={(e) => choseWeightHandler(e.target.value)}>100g</li>
+                <li value="10" className='mt-1 transition duration-100 hover:text-black' onClick={(e) => choseWeightHandler(e.target.value)}>10g</li>
+                <li value="50" className='mt-1 transition duration-100 hover:text-black' onClick={(e) => choseWeightHandler(e.target.value)}>50g</li>
+                <li value="100" className='mt-1 transition duration-100 hover:text-black' onClick={(e) => choseWeightHandler(e.target.value)}>100g</li>
             </ul>
         </div>
     )

@@ -1,21 +1,20 @@
 import Modal from "../UI/Modal"
 import { useSelector } from "react-redux"
 import ReviewInput from "./ReviewInput"
-import { useEffect } from "react";
-import { useState } from "react";
-import { db } from "../../firebase-config";
-import { doc } from "firebase/firestore";
-import { getDoc, updateDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { db, auth } from "../../firebase-config";
+import { getDoc, updateDoc, doc } from "firebase/firestore";
 import Review from "./Review";
-import { auth } from "../../firebase-config";
 
 
 const Reviews = (props) => {
-    const currentUser = auth.currentUser.email.substring(0, auth.currentUser.email.indexOf('@'))
+    const currentUser = auth.currentUser
     const reviewedHerb = useSelector(state => state.modalContent.reviewedHerb)
     const [downloadedReviews, setDownloadedReviews] = useState([])
     const [reviewExist, setReviewsExist] = useState(false)
+    let currentUserName
 
+    currentUser !== null ? currentUserName = currentUser.email.substring(0, currentUser.email.indexOf('@')) : currentUserName = ''
 
     const reviewExitHandler = () => {
         setReviewsExist(true)
@@ -50,9 +49,11 @@ const Reviews = (props) => {
                 const docSnap = await getDoc(docRef);
                 setDownloadedReviews(docSnap.data().reviews)
                 const docData = docSnap.data().reviews
-                const index = docData.findIndex(ob => ob.user === currentUser)
-                if (index !== -1) {
-                    reviewExitHandler()
+                if (currentUserName !== '') {
+                    const index = docData.findIndex(ob => ob.user === currentUserName)
+                    if (index !== -1) {
+                        reviewExitHandler()
+                    }
                 }
             }
             catch (error) {
@@ -60,7 +61,7 @@ const Reviews = (props) => {
             }
         }
         downloadReviews()
-    }, [reviewedHerb, currentUser])
+    }, [reviewedHerb, currentUserName])
 
     return (
         <Modal onClick={props.onToggleReviewsHandler}>

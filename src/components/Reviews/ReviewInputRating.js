@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 
-
-
 const ReviewInputRating = (props) => {
-    // console.log('ReviewInputRating');
+
     const [rating, setRating] = useState(null)
     const [reviewAdded, setReviewAdded] = useState(false)
     const previousRating = useRef(null)

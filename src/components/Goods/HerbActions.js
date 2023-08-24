@@ -12,7 +12,11 @@ const HerbActions = (props) => {
     const favorites = useSelector(state => state.favorites)
     const uploadPermition = useSelector(state => state.modalContent.uploadPermition)
     const dispatch = useDispatch()
+    const currentUser = auth.currentUser
     let revsTextColor
+    let currentUserUid
+
+    currentUser !== null ? currentUserUid = currentUser.uid : currentUserUid = ''
 
     props.reviewsNumber === 0 ? revsTextColor = 'text-gray-400' : revsTextColor = 'text-teal-500 font-medium'
 
@@ -42,26 +46,22 @@ const HerbActions = (props) => {
     }, [favorites, props])
 
     useEffect(() => {
-        //Kiedy użytkownik sie wylogowuje i ponownie loguje za każdym razem ilość zapytań do serwera się zwieksza, ddy usunę onAuthStateChanged działa poprawnie ale wyskakuje błąd Cannot read properties of null (reading 'uid')
-
-        // onAuthStateChanged(auth, (user) => {
-        //     if (user) {
         const uploadUserCart = async () => {
-            try {
-                const docRef = doc(db, 'users', auth.currentUser.uid)
-                if (uploadPermition) {
-                    await updateDoc(docRef, {
-                        userFavorites: favorites
-                    })
+            if (currentUserUid !== '') {
+                try {
+                    const docRef = doc(db, 'users', currentUserUid)
+                    if (uploadPermition) {
+                        await updateDoc(docRef, {
+                            userFavorites: favorites
+                        })
+                    }
+                } catch (error) {
+                    console.log(error);
                 }
-            } catch (error) {
-                // console.log(error);
             }
         }
         uploadUserCart()
-        //     }
-        // })
-    }, [favorites, uploadPermition, props])
+    }, [favorites, uploadPermition, currentUserUid])
 
     return (
         <div className='col-start-3 col-span-3'>

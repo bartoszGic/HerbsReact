@@ -1,11 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { cartHerbsActions } from '../store/cartHerbs-slice'
 import { useDispatch } from 'react-redux'
 import { favoritesActions } from '../store/favorites-slice'
 import HerbActions from './HerbActions'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../firebase-config'
-import { useEffect } from 'react'
 
 const Herb = (props) => {
     const [price, setPrice] = useState(props.price1)
