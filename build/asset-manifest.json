@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/HerbsReact/static/css/main.1340ef24.css",
+    "main.js": "/HerbsReact/static/js/main.deb26788.js",
+    "index.html": "/HerbsReact/index.html",
+    "main.1340ef24.css.map": "/HerbsReact/static/css/main.1340ef24.css.map",
+    "main.deb26788.js.map": "/HerbsReact/static/js/main.deb26788.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1340ef24.css",
+    "static/js/main.deb26788.js"
+  ]
+}
