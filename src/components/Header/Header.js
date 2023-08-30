@@ -8,54 +8,55 @@ import { db, auth } from '../../firebase-config'
 import { useEffect } from "react";
 import { cartHerbsActions } from '../store/cartHerbs-slice'
 import { favoritesActions } from '../store/favorites-slice'
+import { onAuthStateChanged } from 'firebase/auth'
 
 const Header = (props) => {
     const userCart = useSelector(state => state.cartHerbs)
     const uploadPermition = useSelector(state => state.modalContent.uploadPermition)
     const dispatch = useDispatch()
-    const currentUser = auth.currentUser
-    let currentUserUid
-
-    currentUser !== null ? currentUserUid = currentUser.uid : currentUserUid = ''
 
     useEffect(() => {
-        if (currentUserUid !== '') {
-            dispatch(modalsStatesActions.trueLogState())
-            const downloadUserData = async () => {
-                try {
-                    const docRef = doc(db, 'users', currentUserUid)
-                    const userDoc = await getDoc(docRef)
-                    const downloadedUserCart = userDoc.data().userCart
-                    const downloadedUserFavorites = userDoc.data().userFavorites
-                    dispatch(cartHerbsActions.showDownloadedUserCart(downloadedUserCart))
-                    dispatch(favoritesActions.showDownloadedUserFavorites(downloadedUserFavorites))
-                    dispatch(modalsStatesActions.uploadPermition())
-                }
-                catch (error) {
-                    console.log(error);
-                }
-            }
-            downloadUserData()
-        }
-    }, [dispatch, currentUserUid])
-
-    useEffect(() => {
-        const uploadUserCart = async () => {
-            if (currentUserUid !== '') {
-                try {
-                    const docRef = doc(db, 'users', currentUserUid)
-                    if (uploadPermition) {
-                        await updateDoc(docRef, {
-                            userCart: userCart
-                        })
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                dispatch(modalsStatesActions.trueLogState())
+                const downloadUserData = async () => {
+                    try {
+                        const docRef = doc(db, 'users', user.uid)
+                        const userDoc = await getDoc(docRef)
+                        const downloadedUserCart = userDoc.data().userCart
+                        const downloadedUserFavorites = userDoc.data().userFavorites
+                        dispatch(cartHerbsActions.showDownloadedUserCart(downloadedUserCart))
+                        dispatch(favoritesActions.showDownloadedUserFavorites(downloadedUserFavorites))
+                        dispatch(modalsStatesActions.uploadPermition())
                     }
-                } catch (error) {
-                    console.log(error);
+                    catch (error) {
+                        console.log(error);
+                    }
                 }
+                downloadUserData()
             }
-        }
-        uploadUserCart()
-    }, [dispatch, userCart, uploadPermition, currentUserUid])
+        })
+    }, [dispatch])
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uploadUserCart = async () => {
+                    try {
+                        const docRef = doc(db, 'users', user.uid)
+                        if (uploadPermition) {
+                            await updateDoc(docRef, {
+                                userCart: userCart
+                            })
+                        }
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+                uploadUserCart()
+            }
+        })
+    }, [dispatch, userCart, uploadPermition])
 
     return (
         <header className='fixed bg-teal-500 text-white w-full z-20'>

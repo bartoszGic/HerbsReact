@@ -1,4 +1,4 @@
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebase-config";
 import Modal from "../UI/Modal";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,8 +16,18 @@ const UserPanel = (props) => {
     const favorites = useSelector(state => state.favorites)
     const dispatch = useDispatch()
 
-    const email = auth.currentUser.email
-    const nick = email.substring(0, email.indexOf('@'))
+    let email
+    let nick
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            nick = user.email.substring(0, user.email.indexOf('@'))
+            email = user.email
+        } else {
+            nick = ''
+            email = ''
+        }
+    })
 
     const logOutHandler = async () => {
         try {
@@ -54,7 +64,7 @@ const UserPanel = (props) => {
                         <div className="mb-1 text-sm text-gray-500">username:</div>
                         <div className="mb-1 text-sm text-gray-500">email:</div>
                         <div className="grid grid-cols-1 gap-y-4 mt-4">
-                            <button disabled={disabledFavorites} className={!disabledFavorites ? "flex text-[#B81426] text-sm transition duration-100 hover:opacity-90 active:animate-animeBtn" : "text-gray-500"} onClick={showUserFavorites}>Favorites</button>
+                            <button disabled={disabledFavorites} className={!disabledFavorites ? "flex text-[#B81426] text-sm transition duration-100 hover:opacity-90 active:animate-animeBtn" : "flex text-sm text-gray-500"} onClick={showUserFavorites}>Favorites</button>
                             <button onClick={logOutHandler} className="flex text-teal-500 text-sm transition duration-100 hover:opacity-90 active:animate-animeBtn">Log out</button>
                             <button onClick={() => setDeleteUserPanel(true)} className="flex text-sm transition duration-100 hover:opacity-90 active:animate-animeBtn">Delete account</button>
                         </div>

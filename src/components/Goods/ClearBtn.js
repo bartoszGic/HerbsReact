@@ -12,7 +12,7 @@ const ClearBtn = () => {
     }
 
     return (
-        <button onClick={clearHerbsList} className='fixed bg-[#B81426]  text-gray-50 top-20 h-8 w-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl transition duration-100 hover:opacity-90  z-20'>Clear</button>
+        <button onClick={clearHerbsList} className='fixed bg-[#B81426]  text-gray-50 top-20 h-8 w-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl transition duration-100 hover:opacity-90  z-20'>Back</button>
     )
 }
 export default ClearBtn

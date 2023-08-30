@@ -8,8 +8,6 @@ const ReviewInputRating = (props) => {
     let currentStartColor
     let btnText = ''
     let btnColor = ''
-    console.log(reviewAdded);
-
 
     if (props.reviewExist) {
         btnText = 'Change review'

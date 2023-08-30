@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'md': 'inset 0px 0px 15px 20px rgba(63, 63, 63, 1)'
+      },
       keyframes: {
         'animeModal': {
           '0%': {
@@ -24,10 +27,19 @@ module.exports = {
             transform: 'scale(.8)'
           }
         },
+        'animeCartBtn': {
+          '0%, 100%': {
+            transform: 'scale(1)'
+          },
+          '50%': {
+            transform: 'scale(0.7)'
+          }
+        },
       },
       animation: {
         'animeModal': 'animeModal .3s ease-in-out',
-        'animeBtn': 'animeBtn .1s ease-in-out'
+        'animeBtn': 'animeBtn .1s ease-in-out',
+        'animeCartBtn': 'animeCartBtn .3s ease-in-out'
       }
     },
   },

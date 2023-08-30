@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Modal from '../UI/Modal'
 import CartHerb from './CartHerb'
 import { cartHerbsActions } from '../store/cartHerbs-slice'
+import { useState, useEffect } from 'react'
 
 const Cart = (props) => {
     const dispatch = useDispatch()
@@ -9,6 +10,8 @@ const Cart = (props) => {
     const cartHerbs = useSelector(state => state.cartHerbs.herbs)
     const logState = useSelector(state => state.modalContent.logState)
     const hasHerbs = cartHerbs.length > 0
+    const [order, setOrder] = useState(false);
+    const [message, setMessage] = useState(false);
 
     const herbAddHandler = (herb) => {
         dispatch(cartHerbsActions.addToCart(herb))
@@ -21,7 +24,20 @@ const Cart = (props) => {
             props.onToggleCartHandler()
             props.onOrderIfLogged()
         }
+        showOrderMessage()
     }
+    const showOrderMessage = () => {
+        setMessage(state => !state)
+    }
+
+    useEffect(() => {
+        setOrder(true)
+        const timeout = setTimeout(() => {
+            setOrder(false)
+            setMessage(false)
+        }, 1500)
+        return () => clearTimeout(timeout)
+    }, [message, order])
 
     const addedToCartHerbs = (
         <ul className='overflow-auto max-h-96 divide-y'>
@@ -48,14 +64,18 @@ const Cart = (props) => {
                 className='flex font-medium justify-center mt-2'>
                 <div>Total: {`${total} zł`}</div>
             </div>
-            <div
-                className={`flex mt-2 ${!hasHerbs ? 'justify-center' : 'justify-between'}`}>
+            <div className={`flex mt-2 ${!hasHerbs ? 'justify-center' : 'justify-between'}`}>
                 <button
                     className='bg-teal-500 text-gray-50 rounded-xl px-3 py-1 transition duration-100 hover:opacity-90 active:animate-animeBtn'
-                    onClick={props.onToggleCartHandler}>Close</button>
+                    onClick={props.onToggleCartHandler}>Close
+                </button>
+                {message &&
+                    <h3 className='font-bold text-[#B81426]'>IN FUTURE
+                    </h3>}
                 {hasHerbs &&
-                    <button className='ml-4 bg-[#B81426] text-gray-50 rounded-xl px-3 py-1 transition duration-100 hover:opacity-90 active:animate-animeBtn'
-                        onClick={orderHandler}>Order</button>}
+                    <button className='bg-[#B81426] text-gray-50 rounded-xl px-3 py-1 transition duration-100 hover:opacity-90 active:animate-animeBtn'
+                        onClick={orderHandler}>Order
+                    </button>}
             </div>
         </Modal>
     )
