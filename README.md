@@ -24,3 +24,8 @@ https://bartoszgic.github.io/HerbsReact/
 * React/Redux
 * Tailwind
 * Firebase
+
+
+## Screenshots
+
+![preview1](https://github.com/bartoszGic/HerbsReact/blob/main/public/preview1.PNG)
