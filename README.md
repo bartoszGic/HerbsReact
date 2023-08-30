@@ -7,7 +7,7 @@ HerbsReact is an app where you can buy your favorite herbs. This is my first pro
 
 ## Description
 
-You have a dozen different herbs and spices to choose from. To get the most out of the app, you need to create an account with an email and password (can be made up), or if you don't want to create a new account you can use a test account:
+You have a dozen different herbs and spices to choose from. To fully test the app, you need to create an account with an email and password (can be made up), or if you don't want to create a new account you can use a test account:
 
 Email: 123@123.pl
 Password: 123123
