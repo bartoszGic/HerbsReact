@@ -26,6 +26,6 @@ https://bartoszgic.github.io/HerbsReact/
 * Firebase
 
 
-## Screenshots
+## Preview
 
 ![preview1](https://github.com/bartoszGic/HerbsReact/blob/main/public/preview1.PNG)
