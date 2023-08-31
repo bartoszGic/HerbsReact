@@ -12,22 +12,11 @@ import { storeHerbsActions } from "../store/storedHerbs-slice";
 const UserPanel = (props) => {
     const [deleteUserPanel, setDeleteUserPanel] = useState(false)
     const [disabledFavorites, setDisabledFavorites] = useState(true)
+    const [email, setEmail] = useState('')
+    const [nick, setNick] = useState(true)
     const allHerbs = useSelector(state => state.searchHerbs.storeHerbs)
     const favorites = useSelector(state => state.favorites)
     const dispatch = useDispatch()
-
-    let email
-    let nick
-
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            nick = user.email.substring(0, user.email.indexOf('@'))
-            email = user.email
-        } else {
-            nick = ''
-            email = ''
-        }
-    })
 
     const logOutHandler = async () => {
         try {
@@ -49,6 +38,15 @@ const UserPanel = (props) => {
     useEffect(() => {
         favorites.likes.length !== 0 && setDisabledFavorites(false)
     }, [favorites])
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setEmail(user.email.substring(0, user.email.indexOf('@')))
+                setNick(user.email)
+            }
+        })
+    }, [])
 
     if (deleteUserPanel) {
         return (
