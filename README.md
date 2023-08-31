@@ -29,3 +29,4 @@ https://bartoszgic.github.io/HerbsReact/
 ## Preview
 
 ![preview1](https://github.com/bartoszGic/HerbsReact/blob/main/public/preview1.PNG)
+![preview1](https://github.com/bartoszGic/HerbsReact/blob/main/public/preview2.PNG)
