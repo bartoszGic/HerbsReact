@@ -86,7 +86,7 @@ const HerbsList = (props) => {
         )
     }
     return (
-        <section className='flex pt-[48px] justify-center w-full max-w-6xl'>
+        <section className='flex pt-[48px] pb-20 justify-center w-full max-w-6xl lg:pb-40'>
             {errorMsg
                 ?
                 <div className="text-[#B81426] pt-16 text-center text-2xl">No goods were found!</div>

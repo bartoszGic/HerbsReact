@@ -9,22 +9,13 @@ import { onAuthStateChanged } from "firebase/auth";
 
 
 const Reviews = (props) => {
-    // const currentUser = auth.currentUser
     const reviewedHerb = useSelector(state => state.modalContent.reviewedHerb)
     const [downloadedReviews, setDownloadedReviews] = useState([])
     const [reviewExist, setReviewsExist] = useState(false)
     const [ratingAverage, setRatingAverage] = useState(0)
+    const [currentUserName, setCurrentUserName] = useState(0)
 
-    let currentUserName
     let rating
-
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            currentUserName = user.email.substring(0, user.email.indexOf('@'))
-        } else {
-            currentUserName = ''
-        }
-    })
 
     !isNaN(ratingAverage) ? rating = ratingAverage : rating = '-'
 
@@ -67,25 +58,32 @@ const Reviews = (props) => {
     }
 
     useEffect(() => {
-        const downloadReviews = async () => {
-            try {
-                const docRef = doc(db, 'herbsReviews', reviewedHerb)
-                const docSnap = await getDoc(docRef);
-                setDownloadedReviews(docSnap.data().reviews)
-                const docData = docSnap.data().reviews
-                setRatingAverage(countAverage(docData, docData.length))
-                if (currentUserName !== '') {
-                    const index = docData.findIndex(ob => ob.user === currentUserName)
-                    if (index !== -1) {
-                        reviewExitHandler()
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setCurrentUserName(user.email.substring(0, user.email.indexOf('@')))
+                const downloadReviews = async () => {
+                    try {
+                        const docRef = doc(db, 'herbsReviews', reviewedHerb)
+                        const docSnap = await getDoc(docRef);
+                        setDownloadedReviews(docSnap.data().reviews)
+                        const docData = docSnap.data().reviews
+                        setRatingAverage(countAverage(docData, docData.length))
+                        if (currentUserName !== '') {
+                            const index = docData.findIndex(ob => ob.user === currentUserName)
+                            if (index !== -1) {
+                                reviewExitHandler()
+                            }
+                        }
+                    }
+                    catch (error) {
+                        console.log(error)
                     }
                 }
+                downloadReviews()
+            } else {
+                setCurrentUserName('')
             }
-            catch (error) {
-                console.log(error)
-            }
-        }
-        downloadReviews()
+        })
     }, [reviewedHerb, currentUserName])
 
     return (

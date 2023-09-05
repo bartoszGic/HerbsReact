@@ -5,7 +5,6 @@ import { storeHerbsActions } from "../store/storedHerbs-slice"
 import { storeSearchInputActions } from "../store/storeInput-slice"
 
 const SearchInput = (props) => {
-    console.log('SearchInput');
     const stateOfInput = useSelector(state => state.inputValue.inputValue)
     const [inputValue, setinputValue] = useState(stateOfInput)
 

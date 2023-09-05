@@ -61,9 +61,7 @@ const Header = (props) => {
     return (
         <header className='fixed bg-teal-500 text-white w-full z-20'>
             <section className='flex justify-between max-w-4xl mx-auto items-center p-2 lg:lg:max-w-5xl'>
-                <button onClick={() => window.location.reload()}>
-                    <h1 className='text-2xl'>HerbsReact</h1>
-                </button>
+                <h1 className='text-2xl'>HerbsReact</h1>
                 <div className='flex'>
                     <LogBtn
                         onClick={props.onToggleUserToolsHandler} />

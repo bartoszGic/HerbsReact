@@ -1,9 +1,12 @@
 import { useState } from "react"
 import Modal from "../UI/Modal"
 import { signInWithEmailAndPassword } from "firebase/auth"
-import { auth } from "../../firebase-config"
-import { useDispatch } from "react-redux"
+import { doc, getDoc, updateDoc } from "firebase/firestore"
+import { auth, db } from "../../firebase-config"
+import { useDispatch, useSelector } from "react-redux"
 import { modalsStatesActions } from "../store/modalsStates-slice"
+import { favoritesActions } from "../store/favorites-slice"
+import { cartHerbsActions } from "../store/cartHerbs-slice"
 
 const SignIn = (props) => {
     const [email, setEmail] = useState('')
@@ -12,12 +15,46 @@ const SignIn = (props) => {
     const [emailError, setEmailError] = useState(null)
     const [passwordError, setPasswordError] = useState(null)
     const dispatch = useDispatch()
+    const favorites = useSelector(state => state.favorites)
+    const cartHerbs = useSelector(state => state.cartHerbs)
+
+    const updateFavorites = async () => {
+        const docRef = doc(db, 'users', auth.currentUser.uid)
+        const docSnap = await getDoc(docRef)
+        const currentUserFavorites = docSnap.data().userFavorites.likes
+        const freeAddedFavorites = [...favorites.likes]
+        for (let i = 0; i < currentUserFavorites.length; i++) {
+            let element = currentUserFavorites[i]
+            !freeAddedFavorites.includes(element) && freeAddedFavorites.push(element)
+        }
+        await updateDoc(docRef, {
+            userFavorites: {
+                likes: freeAddedFavorites
+            }
+        })
+        const newDocSnap = await getDoc(docRef)
+        const newUserFavorites = newDocSnap.data().userFavorites
+        dispatch(favoritesActions.showDownloadedUserFavorites(newUserFavorites))
+    }
+
+    const updateCart = async () => {
+        const docRef = doc(db, 'users', auth.currentUser.uid)
+        const freeAddedCart = { ...cartHerbs }
+        await updateDoc(docRef, {
+            userCart: freeAddedCart
+        })
+        const docSnap = await getDoc(docRef)
+        const newUserCart = docSnap.data().userCart
+        dispatch(cartHerbsActions.showDownloadedUserCart(newUserCart))
+    }
 
     const signInHandler = async (e) => {
         e.preventDefault()
         try {
             setLoading(true)
             await signInWithEmailAndPassword(auth, email, password)
+            updateFavorites()
+            updateCart()
             dispatch(modalsStatesActions.trueLogState())
             setLoading(false)
         }

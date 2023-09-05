@@ -8,6 +8,7 @@ import SignIn from "./components/User/SignIn";
 import UserPanel from "./components/User/UserPanel";
 import Reviews from "./components/Reviews/Reviews";
 import { useSelector } from "react-redux";
+import Footer from "./components/Header/Footer";
 
 function App() {
   // console.log('App');
@@ -72,6 +73,7 @@ function App() {
         <HerbsList
           onToggleReviewsHandler={toggleReviewsHandler} />
       </main>
+      <Footer />
     </>
   );
 }

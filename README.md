@@ -1,9 +1,6 @@
-
 # HerbsReact
 
 HerbsReact is an app where you can buy your favorite herbs. This is my first project written in react. I used Firebase and Tailwind to development.
-
-
 
 ## Description
 
@@ -13,18 +10,17 @@ Email: 123@123.pl
 Password: 123123
 
 Now freely add and remove products in your shopping cart or favorites.
-Every registered user has the ability to rate and write reviews about products.
+Every registered user has the ability to rate and write reviews about products. By clicking on the image of the product you will see information about it.
+
 ## Live
 
 https://bartoszgic.github.io/HerbsReact/
 
-
 ## Tech Stack
 
-* React/Redux
-* Tailwind
-* Firebase
-
+- React/Redux
+- Tailwind
+- Firebase
 
 ## Preview
 

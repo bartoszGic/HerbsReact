@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { cartHerbsActions } from '../store/cartHerbs-slice'
 import { useDispatch } from 'react-redux'
-import { favoritesActions } from '../store/favorites-slice'
+// import { favoritesActions } from '../store/favorites-slice'
 import HerbActions from './HerbActions'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../firebase-config'
@@ -32,8 +32,11 @@ const Herb = (props) => {
     }
 
     const clickCatch = (e) => {
-        refOne.current.contains(e.target) && setShowDescription(true)
-        !refOne.current.contains(e.target) && setShowDescription(false)
+        if (refOne.current.contains(e.target)) {
+            setShowDescription(true)
+        } else if (!refOne.current.contains(e.target)) {
+            setShowDescription(false)
+        }
     }
 
     const addToCartHandler = (weight) => {
@@ -46,16 +49,16 @@ const Herb = (props) => {
             img: props.img
         }));
     }
-    const addToFavoritesHandler = () => {
-        dispatch(favoritesActions.addToFavorites({
-            name: props.name
-        }))
-    }
-    const removeFromFavoritesHandler = () => {
-        dispatch(favoritesActions.removeFromFavorites({
-            name: props.name
-        }))
-    }
+    // const addToFavoritesHandler = () => {
+    //     dispatch(favoritesActions.addToFavorites({
+    //         name: props.name
+    //     }))
+    // }
+    // const removeFromFavoritesHandler = () => {
+    //     dispatch(favoritesActions.removeFromFavorites({
+    //         name: props.name
+    //     }))
+    // }
     const countAverage = (inputArray, numOfReviews) => {
         const sum = inputArray.reduce((rate, review) => rate + review.rate, 0)
         const average = sum / numOfReviews
@@ -105,8 +108,8 @@ const Herb = (props) => {
                 <HerbActions
                     onAddToCart={addToCartHandler}
                     onWeightChange={changeWeightHandl}
-                    onAddToFavorites={addToFavoritesHandler}
-                    onRemoveFromFavorites={removeFromFavoritesHandler}
+                    // onAddToFavorites={addToFavoritesHandler}
+                    // onRemoveFromFavorites={removeFromFavoritesHandler}
                     herbName={props.name}
                     toggleReviews={props.toggleReviews}
                     reviewsNumber={reviewsNumber}

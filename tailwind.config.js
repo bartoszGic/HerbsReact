@@ -5,9 +5,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      boxShadow: {
-        'md': 'inset 0px 0px 15px 20px rgba(63, 63, 63, 1)'
-      },
       keyframes: {
         'animeModal': {
           '0%': {
