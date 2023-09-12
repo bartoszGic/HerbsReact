@@ -1,6 +1,6 @@
 {
 	"homepage": "https://bartoszgic.github.io/HerbsReact",
-	"name": "react-complete-guide",
+	"name": "herbsreact",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
