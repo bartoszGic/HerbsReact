@@ -81,6 +81,19 @@ const Reviews = (props) => {
                 }
                 downloadReviews()
             } else {
+                const downloadOnlyReviews = async () => {
+                    try {
+                        const docRef = doc(db, 'herbsReviews', reviewedHerb)
+                        const docSnap = await getDoc(docRef);
+                        setDownloadedReviews(docSnap.data().reviews)
+                        const docData = docSnap.data().reviews
+                        setRatingAverage(countAverage(docData, docData.length))
+                    }
+                    catch (error) {
+                        console.log(error)
+                    }
+                }
+                downloadOnlyReviews()
                 setCurrentUserName('')
             }
         })
