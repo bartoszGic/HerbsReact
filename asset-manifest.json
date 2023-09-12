@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/HerbsReact/static/css/main.006f9b4d.css",
-    "main.js": "/HerbsReact/static/js/main.fbd6fc23.js",
+    "main.js": "/HerbsReact/static/js/main.8a0dbdfa.js",
     "index.html": "/HerbsReact/index.html",
     "main.006f9b4d.css.map": "/HerbsReact/static/css/main.006f9b4d.css.map",
-    "main.fbd6fc23.js.map": "/HerbsReact/static/js/main.fbd6fc23.js.map"
+    "main.8a0dbdfa.js.map": "/HerbsReact/static/js/main.8a0dbdfa.js.map"
   },
   "entrypoints": [
     "static/css/main.006f9b4d.css",
-    "static/js/main.fbd6fc23.js"
+    "static/js/main.8a0dbdfa.js"
   ]
 }
